@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -85,13 +86,44 @@ public class Employee implements Serializable {
     @Column(name = "admin", nullable = false)
     private Boolean admin = false;
 
-    @Column(name = "department_id")
-    private Long departmentId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "branch_id", nullable = false)
+    private Branch branch;
 
-    @Column(name = "branch_id")
-    private Long branchId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
 
-    @Column(name = "manager_id")
-    private Long manageId;
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private Set<Certificate> certificate;
 
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private Set<Dependent> dependent;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private Set<Education> education;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private Set<EmergencyContact> emergencyContact;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private Set<EmploymentContract> employmentContract;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private Set<Immigration> immigration;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private Set<Language> language;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private Set<Leave> leave;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private Set<Record> record;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private Set<Salary> salary;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private Set<WorkExperience> workExperience;
 }

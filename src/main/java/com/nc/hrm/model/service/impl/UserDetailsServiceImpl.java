@@ -1,4 +1,4 @@
-package com.nc.hrm.model.service;
+package com.nc.hrm.model.service.impl;
 
 import com.nc.hrm.model.entity.Employee;
 import com.nc.hrm.model.repository.EmployeeRepository;

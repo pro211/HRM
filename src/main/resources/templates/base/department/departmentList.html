@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<a th:href="@{/admin/department/create}"><span
+        class="glyphicon glyphicon-pencil"></span>Create</a>
+
+<th:block th:if="${#lists.isEmpty(department)}">
+    <h3>No department</h3>
+</th:block>
+
+<th:block th:unless="${#lists.isEmpty(department)}">
+    <table border="1">
+        <tr>
+            <th>STT</th>
+            <th>Mã</th>
+            <th>Tên</th>
+            <th>Ghi chú</th>
+            <th>Trạng thái</th>
+            <th>Sửa</th>
+            <th>Xóa</th>
+        </tr>
+        <tbody>
+        <tr th:each="d,iterStat: ${department}">
+            <!--tao so thu tu-->
+            <td th:text="${iterStat.count}"></td>
+
+            <td th:text="${d.code}"></td>
+            <td th:text="${d.name}"></td>
+            <td th:text="${d.note}"></td>
+            <td th:if="d.active" th:text="'Hoạt động'" ></td>
+            <td th:if="!d.active">Dừnghoạtđộng</td>
+            <td><a th:href="@{/admin/department/{id}/edit(id=${d.id})}">Sửa</a></td>
+            </td>
+            <td><a th:href="@{/admin/department/{id}/delete(id=${d.id})}">Xóa</a></td>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</th:block>
+</body>
+</html>

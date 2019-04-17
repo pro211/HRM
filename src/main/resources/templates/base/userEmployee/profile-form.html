@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p> Xin chao Oanh L To </p>
+<form action="#" th:action="@{/employee/save}" th:object="${profile}" method="post" novalidate="novalidate">
+    <input type="hidden" th:field="*{id}"/>
+    <input type="hidden" th:field="*{code}"/>
+    <input type="hidden" th:field="*{password}"/>
+    <input type="hidden" th:field="*{branch.id}"/>
+    <input type="hidden" th:field="*{department.id}"/>
+    <br>
+    <div>
+        <label>Tên</label>
+        <input type="text" th:field="*{name}"/>
+    </div>
+
+    <br>
+    <div>
+        <label>Căn cước công dân (CMTND)</label>
+        <input type="text" th:field="*{identityNumber}"/>
+    </div>
+
+    <br>
+    <div>
+        <label>Giới tính</label>
+        <input type="radio" name="gender" th:field="*{gender}" th:value="${true}">Nam
+        <input type="radio" name="gender" th:field="*{gender}" th:value="${false}">Nu
+    </div>
+
+    <br>
+    <div>
+        <label>Quốc tịch</label>
+        <input type="text" th:field="*{nationality}"/>
+    </div>
+
+    <br>
+    <div>
+        <label>Năm sinh</label>
+        <input type="text" th:field="*{dateOfBirth}"/>
+    </div>
+
+    <br>
+    <div>
+        <label>Tình trạng hôn nhân</label>
+        <select th:field="*{maritalStatus}">
+            <option th:each="maritalStatus : ${T(com.nc.hrm.model.enums.MaritalStatus).values()}"
+                    th:value="${maritalStatus.value}"
+                    th:text="${maritalStatus.text}">
+            </option>
+        </select>
+    </div>ext
+
+    <br>
+    <div>
+        <label>Địa chỉ số 1</label>
+        <input type="text" th:field="*{addressStreet1}"/>
+    </div>
+
+    <br>
+    <div>
+        <label>Địa chỉ số 2</label>
+        <input type="text" th:field="*{addressStreet2}"/>
+    </div>
+
+    <br>
+    <div>
+        <label>Thành phố</label>
+        <input type="text" th:field="*{city}"/>
+    </div>
+
+    <br>
+    <div>
+        <label>Tỉnh</label>
+        <input type="text" th:field="*{stateProvince}"/>
+    </div>
+
+    <br>
+    <div>
+        <label>Mã bưu chính</label>
+        <input type="text" th:field="*{zipPostalCode}"/>
+    </div>
+
+    <br>
+    <div>
+        <label>Quốc gia</label>
+        <input type="text" th:field="*{country}"/>
+    </div>
+
+    <br>
+    <div>
+        <label>Số điện thoại cố định</label>
+        <input type="text" th:field="*{homeTelephone}"/>
+    </div>
+
+    <br>
+    <div>
+        <label>Số điện thoại di động</label>
+        <input type="text" th:field="*{personalMobile}"/>
+    </div>
+
+    <br>
+    <div>
+        <label>Số điện thoại làm việc</label>
+        <input type="text" th:field="*{workTelephone}"/>
+    </div>
+
+    <br>
+    <div>
+        <label>Email làm việc</label>
+        <input type="text" th:field="*{workEmail}"/>
+    </div>
+
+    <br>
+    <div>
+        <label>Email cá nhân</label>
+        <input type="text" th:field="*{personalEmail}"/>
+    </div>
+
+    <br>
+    <button type="submit">Sửa đổi thông tin</button>
+</form>
+</body>
+</html>

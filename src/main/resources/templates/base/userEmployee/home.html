@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity">
+<body>
+
+
+<div class="container">
+    <!--<p>-->
+    <!--<span sec:authorize="isAuthenticated()" style="display: inline-block;">-->
+    <!--Chào mừng nhân viên:  <span sec:authentication="name"></span>-->
+    <!--</span>-->
+    <!--</p>-->
+    Chào mừng nhân viên : <span th:text="${code}"></span> - đăng nhập thành công !
+    <div>
+        <div>
+            <a th:href="@{/employee/{username}/profile(username=${code})}">Thông tin cá nhân</a>
+        </div>
+        <div>
+            <a th:href="@{/employee/{username}/salary(username=${code})}">Lương</a>
+        </div>
+        <div>
+            <a th:href="@{/employee/{username}/dayoff(username=${code})}">Xin nghỉ phép</a>
+        </div>
+        <div>
+            <a th:href="@{/logout}">Đăng xuất</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

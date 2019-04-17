@@ -1,6 +1,6 @@
 package com.nc.hrm.config;
 
-import com.nc.hrm.model.service.UserDetailsServiceImpl;
+import com.nc.hrm.model.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,11 +8,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 @EnableWebSecurity
@@ -36,8 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .antMatchers("/login").anonymous()
-                .antMatchers("/logout", "/").authenticated()
-                .antMatchers("/employee/**").hasRole("EMPLOYEE")
+                .antMatchers("/logout", "/", "/employee/**").authenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .and()
             .formLogin()
