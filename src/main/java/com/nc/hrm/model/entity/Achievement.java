@@ -1,11 +1,13 @@
 package com.nc.hrm.model.entity;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -13,26 +15,30 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="dependent")
-public class Dependent {
+@Table(name = "achievement")
+public class Achievement {
+
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="name")
-    private String name;
+    @Column(name = "apply_date")
+    private LocalDate applyDate;
 
-    @Column(name="relationship")
-    private String relationship;
+    @Column(name = "reason")
+    private String reason;
 
-    @Column(name="date_of_birth")
-    private Date dateOfBirth;
+    @Column(name = "type")
+    private boolean type;
 
-    @Column(name="note")
+    @Column(name = "amount")
+    private Long amount;
+
+    @Column(name = "note")
     private String note;
 
     @ManyToOne
-    @JoinColumn(name="employee_id", nullable = false)
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 }

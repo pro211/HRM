@@ -1,32 +1,34 @@
 package com.nc.hrm.model.entity;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import com.nc.hrm.util.BaseEntity;
+import lombok.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "employee")
-public class Employee implements Serializable {
+public class Employee extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "code", unique = true, nullable = false)
+    @Column(name = "business_name")
     private String code;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
     @Column(name = "identity_number")
@@ -42,7 +44,7 @@ public class Employee implements Serializable {
     private LocalDate dateOfBirth;
 
     @Column(name = "marital_status")
-    private String maritalStatus;
+    private Integer maritalStatus;
 
     @Column(name = "address_street_1")
     private String addressStreet1;
@@ -77,53 +79,32 @@ public class Employee implements Serializable {
     @Column(name = "personal_email")
     private String personalEmail;
 
-    @Column(name = "joined_date", nullable = false, updatable = false)
+    @Column(name = "emergency_contact")
+    private String emergencyContact;
+
+    @Column(name = "joined_date")
     private LocalDate joinedDate;
 
-    @Column(name = "active", nullable = false)
-    private Boolean active = true;
+    @Column(name = "active")
+    private boolean isActive = true;
 
-    @Column(name = "admin", nullable = false)
-    private Boolean admin = false;
+    @Column(name = "admin")
+    private boolean isAdmin = false;
+
+    @Column(name = "manager_id")
+    private Integer managerId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "branch_id", nullable = false)
-    private Branch branch;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id", nullable = false)
+    @JoinColumn(name = "department_id")
     private Department department;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private Set<Certificate> certificate;
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
+    private Set<Contract> contract;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private Set<Dependent> dependent;
-
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private Set<Education> education;
-
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private Set<EmergencyContact> emergencyContact;
-
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private Set<EmploymentContract> employmentContract;
-
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private Set<Immigration> immigration;
-
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private Set<Language> language;
-
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
     private Set<Leave> leave;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private Set<Record> record;
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
+    private Set<Achievement> achievement;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private Set<Salary> salary;
-
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private Set<WorkExperience> workExperience;
 }

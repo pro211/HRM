@@ -1,25 +1,24 @@
 package com.nc.hrm.model.service.impl;
 
-import com.nc.hrm.model.entity.Branch;
 import com.nc.hrm.model.entity.Department;
-import com.nc.hrm.model.entity.Dependent;
-import com.nc.hrm.model.repository.BranchRepository;
 import com.nc.hrm.model.repository.DepartmentRepository;
-import com.nc.hrm.model.service.BranchService;
 import com.nc.hrm.model.service.DepartmentService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
 @Service
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class DepartmentServiceImpl implements DepartmentService {
-    @Autowired
-    private DepartmentRepository departmentRepository;
+
+    private final DepartmentRepository departmentRepository;
 
     @Override
-    public Iterable<Department> findAll() {
+    public List<Department> findAll() {
         return departmentRepository.findAll();
     }
 
@@ -37,4 +36,5 @@ public class DepartmentServiceImpl implements DepartmentService {
     public void delete(int id) {
         departmentRepository.deleteById(id);
     }
+
 }

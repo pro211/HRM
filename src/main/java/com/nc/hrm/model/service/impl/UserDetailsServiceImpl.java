@@ -2,6 +2,7 @@ package com.nc.hrm.model.service.impl;
 
 import com.nc.hrm.model.entity.Employee;
 import com.nc.hrm.model.repository.EmployeeRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,10 +18,10 @@ import java.util.Objects;
 import java.util.Set;
 
 @Service
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
 
     @Override
     @Transactional
@@ -30,8 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         }
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority(employee.getAdmin() ? "ROLE_ADMIN" : "ROLE_EMPLOYEE"));
-        return new User(employee.getCode(), employee.getPassword(),
-                grantedAuthorities);
+        grantedAuthorities.add(new SimpleGrantedAuthority(employee.isAdmin() ? "ROLE_ADMIN" : "ROLE_EMPLOYEE"));
+        return new User(employee.getCode(), employee.getPassword(), grantedAuthorities);
     }
 }

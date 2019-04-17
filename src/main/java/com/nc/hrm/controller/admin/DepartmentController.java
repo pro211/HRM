@@ -1,9 +1,9 @@
 package com.nc.hrm.controller.admin;
 
-import com.nc.hrm.util.Pages;
-import com.nc.hrm.model.entity.Branch;
 import com.nc.hrm.model.entity.Department;
 import com.nc.hrm.model.service.DepartmentService;
+import com.nc.hrm.util.Pages;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,15 +12,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
 @Controller
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class DepartmentController {
 
-    @Autowired
-    private DepartmentService departmentService;
+    private final DepartmentService departmentService;
 
     // Index
     @GetMapping("/admin/department")
@@ -32,7 +31,7 @@ public class DepartmentController {
     // Create
     @GetMapping("/admin/department/create")
     public String create(Model model) {
-        model.addAttribute("department", new Branch());
+        model.addAttribute("department", new Department());
         return Pages.AD_DEPARTMENT_FORM;
     }
 
@@ -45,7 +44,7 @@ public class DepartmentController {
 
     // Save or Update
     @PostMapping("/admin/department/save")
-    public String save(@Valid Department department, BindingResult result, RedirectAttributes redirect) {
+    public String save(@Valid Department department, BindingResult result) {
         if (result.hasErrors()) {
             return Pages.AD_DEPARTMENT_FORM;
         }
@@ -55,7 +54,7 @@ public class DepartmentController {
 
     // Delete
     @GetMapping("/admin/department/{id}/delete")
-    public String delete(@PathVariable int id, RedirectAttributes redirect) {
+    public String delete(@PathVariable int id) {
         departmentService.delete(id);
         return "redirect:/admin/department";
     }

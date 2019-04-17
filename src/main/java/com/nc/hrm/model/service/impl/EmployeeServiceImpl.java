@@ -1,10 +1,7 @@
 package com.nc.hrm.model.service.impl;
 
-import com.nc.hrm.model.entity.Branch;
 import com.nc.hrm.model.entity.Employee;
-import com.nc.hrm.model.repository.BranchRepository;
 import com.nc.hrm.model.repository.EmployeeRepository;
-import com.nc.hrm.model.service.BranchService;
 import com.nc.hrm.model.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

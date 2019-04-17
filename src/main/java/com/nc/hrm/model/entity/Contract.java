@@ -1,7 +1,6 @@
 package com.nc.hrm.model.entity;
 
 
-import com.nc.hrm.util.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,30 +14,34 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "leave")
-public class Leave extends BaseEntity {
+@Table(name = "contract")
+public class Contract {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "apply_date")
-    private LocalDate applyDate;
+    @Column(name = "position")
+    private Integer position;
 
-    @Column(name = "from_date")
-    private LocalDate fromDate;
+    @Column(name = "start_date")
+    private LocalDate startDate;
 
-    @Column(name = "to_date")
-    private LocalDate toDate;
+    @Column(name = "end_date")
+    private LocalDate endDate;
+
+    @Column(name = "base_salary")
+    private Long baseSalary;
+
+    @Column(name = "bonus_salary")
+    private Long bonusSalary;
 
     @Column(name = "note")
     private String note;
 
-    @Column(name = "status")
-    private Integer status;
-
-    @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
     private Employee employee;
+
 }

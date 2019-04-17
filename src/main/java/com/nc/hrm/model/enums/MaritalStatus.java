@@ -1,20 +1,18 @@
 package com.nc.hrm.model.enums;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public enum MaritalStatus {
 
     SINGLE(0, "Độc thân"),
     MARRIED(1, "Đã kết hôn"),
-    DIVORCED(2, "Đã ly dị"),
+    COMPLICATED(2, "Phức tạp"),
     OTHER(3, "Khác");
 
     private int value;
-    private String text;
+    private String description;
 
-    MaritalStatus(int value, String text) {
-        this.value = value;
-        this.text = text;
-    }
 }
