@@ -30,8 +30,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (Objects.isNull(employee)) {
             throw new UsernameNotFoundException("User not found");
         }
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority(employee.isAdmin() ? "ROLE_ADMIN" : "ROLE_EMPLOYEE"));
-        return new User(employee.getCode(), employee.getPassword(), grantedAuthorities);
+        return employee;
     }
 }
