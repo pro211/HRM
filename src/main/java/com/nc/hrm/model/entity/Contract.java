@@ -52,6 +52,6 @@ public class Contract {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "jobtitle_id")
-    private Jobtitle jobtitle;
+    private JobTitle jobTitle;
 
 }

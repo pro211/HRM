@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,12 +25,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Employee employee = employeeRepository.findByCode(username);
+        Employee employee = employeeRepository.findByBusinessName(username);
         if (Objects.isNull(employee)) {
             throw new UsernameNotFoundException("User not found");
         }
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(employee.isAdmin() ? "ROLE_ADMIN" : "ROLE_EMPLOYEE"));
-        return new User(employee.getCode(), employee.getPassword(), grantedAuthorities);
+        return new EmployeeDetails(employee.getBusinessName(), employee.getPassword(), grantedAuthorities, employee.getId(), employee.getName());
     }
 }

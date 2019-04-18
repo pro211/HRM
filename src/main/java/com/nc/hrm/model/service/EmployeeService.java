@@ -11,7 +11,7 @@ public interface EmployeeService {
 
     Optional<Employee> finById(int id);
 
-    Employee findByCode(String code);
+    Employee findByBusinessName(String code);
 
     void delete(int id);
 }

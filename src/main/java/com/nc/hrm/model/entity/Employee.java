@@ -20,10 +20,10 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     @Column(name = "business_name")
-    private String code;
+    private String businessName;
 
     @Column(name = "password")
     private String password;
@@ -37,7 +37,7 @@ public class Employee {
     @Column(name = "identity_number")
     private String identityNumber;
 
-    @Column(name = "gender", nullable = false)
+    @Column(name = "gender")
     private Boolean gender = true;
 
     @Column(name = "nationality")

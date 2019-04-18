@@ -10,7 +10,7 @@
     <table border="1">
         <tr>
             <th>Mã nhân viên</th>
-            <th th:text="${profile.code}"></th>
+            <th th:text="${profile.businessName}"></th>
         </tr>
 
         <tr>
@@ -100,6 +100,6 @@
         </tr>
     </table>
 
-    <a th:href="@{/employee/{username}/editprofile(username=${profile.code})}">Sửa thông tin cá nhân</a>
+    <a th:href="@{/employee/{username}/editprofile(username=${profile.businessName})}">Sửa thông tin cá nhân</a>
 </body>
 </html>

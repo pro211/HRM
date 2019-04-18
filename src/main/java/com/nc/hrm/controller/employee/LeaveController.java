@@ -23,15 +23,15 @@
     //
     //    @GetMapping("/employee/leave")
     //    public String home(Principal principal, Model model) {
-    //        String code = principal.getName();
-    //        model.addAttribute("profile", employeeService.findByCode(code));
+    //        String businessName = principal.getName();
+    //        model.addAttribute("profile", employeeService.findByCode(businessName));
     //        return "us_leave";
     //    }
     //
     //    @GetMapping("/employee/newleave")
     //    public String editProfile(Principal principal, Model model) {
-    //        String code = principal.getName();
-    //        model.addAttribute("profile", employeeService.findByCode(code));
+    //        String businessName = principal.getName();
+    //        model.addAttribute("profile", employeeService.findByCode(businessName));
     //        return "us_profile_form";
     //    }
     //

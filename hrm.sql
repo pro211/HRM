@@ -96,7 +96,7 @@ CREATE TABLE `department` (
   `note` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `code_UNIQUE` (`code`),
+  UNIQUE KEY `code_UNIQUE` (`businessName`),
   UNIQUE KEY `name_UNIQUE` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -164,10 +164,10 @@ INSERT INTO `employee` (`id`, `business_name`, `password`, `name`, `avatar`, `id
 UNLOCK TABLES;
 
 --
--- Table structure for table `jobtitle`
+-- Table structure for table `jobTitle`
 --
 
-DROP TABLE IF EXISTS `jobtitle`;
+DROP TABLE IF EXISTS `jobTitle`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8 ;
 CREATE TABLE `jobtitle` (
@@ -177,7 +177,7 @@ CREATE TABLE `jobtitle` (
   `note` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `department_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `code_UNIQUE` (`code`),
+  UNIQUE KEY `code_UNIQUE` (`businessName`),
   UNIQUE KEY `name_UNIQUE` (`name`),
   KEY `fk_jobtitle_department_idx` (`department_id`),
   CONSTRAINT `fk_jobtitle_department` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`)
@@ -185,12 +185,12 @@ CREATE TABLE `jobtitle` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `jobtitle`
+-- Dumping data for table `jobTitle`
 --
 
-LOCK TABLES `jobtitle` WRITE;
-/*!40000 ALTER TABLE `jobtitle` DISABLE KEYS */;
-/*!40000 ALTER TABLE `jobtitle` ENABLE KEYS */;
+LOCK TABLES `jobTitle` WRITE;
+/*!40000 ALTER TABLE `jobTitle` DISABLE KEYS */;
+/*!40000 ALTER TABLE `jobTitle` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

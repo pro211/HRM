@@ -39,6 +39,6 @@ public class Leave  {
     private Integer status;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 }

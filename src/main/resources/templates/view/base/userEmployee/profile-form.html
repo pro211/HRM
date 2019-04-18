@@ -10,7 +10,7 @@
 <p> Xin chao Oanh L To </p>
 <form action="#" th:action="@{/employee/save}" th:object="${profile}" method="post" novalidate="novalidate">
     <input type="hidden" th:field="*{id}"/>
-    <input type="hidden" th:field="*{code}"/>
+    <input type="hidden" th:field="*{businessName}"/>
     <input type="hidden" th:field="*{password}"/>
     <input type="hidden" th:field="*{branch.id}"/>
     <input type="hidden" th:field="*{department.id}"/>

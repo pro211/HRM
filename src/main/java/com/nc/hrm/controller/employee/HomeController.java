@@ -23,14 +23,14 @@ public class HomeController {
     @GetMapping("/employee/profile")
     public String home(Principal principal, Model model) {
         String code = principal.getName();
-        model.addAttribute("profile", employeeService.findByCode(code));
+        model.addAttribute("profile", employeeService.findByBusinessName(code));
         return "us_profile";
     }
 
     @GetMapping("/employee/editprofile")
     public String editProfile(Principal principal, Model model) {
         String code = principal.getName();
-        model.addAttribute("profile", employeeService.findByCode(code));
+        model.addAttribute("profile", employeeService.findByBusinessName(code));
         return "us_profile_form";
     }
 
