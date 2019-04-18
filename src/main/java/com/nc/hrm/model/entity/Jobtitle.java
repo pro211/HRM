@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -14,8 +15,9 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "department")
-public class Department {
+@Table(name = "jobtitle")
+public class Jobtitle {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,13 +32,11 @@ public class Department {
     @Column(name = "note")
     private String note;
 
-    @Column(name = "active")
-    private Boolean active;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
-    private Set<Employee> employee;
-
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
-    private Set<Jobtitle> jobtitles;
+    @OneToMany(mappedBy = "jobtitle", cascade = CascadeType.ALL)
+    private Set<Contract> contracts;
 
 }

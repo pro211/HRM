@@ -4,7 +4,7 @@ public interface Pages {
 
     // User - Employee
     String HOME = "base/userEmployee/home";
-    String PROFILE = "base/userEmployee/profile";
+    String PROFILE = "us_profile";
     String PROFILE_FORM = "base/userEmployee/profile-form";
 
     // Department

@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "leave")
-public class Leave extends BaseEntity {
+public class Leave  {
 
     @Id
     @Column(name = "id")
@@ -32,8 +32,8 @@ public class Leave extends BaseEntity {
     @Column(name = "to_date")
     private LocalDate toDate;
 
-    @Column(name = "note")
-    private String note;
+    @Column(name = "reason")
+    private String reason;
 
     @Column(name = "status")
     private Integer status;

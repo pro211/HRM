@@ -22,6 +22,12 @@ public class Contract {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "code")
+    private String code;
+
+    @Column(name = "type")
+    private Integer type;
+
     @Column(name = "position")
     private Integer position;
 
@@ -43,5 +49,9 @@ public class Contract {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "jobtitle_id")
+    private Jobtitle jobtitle;
 
 }

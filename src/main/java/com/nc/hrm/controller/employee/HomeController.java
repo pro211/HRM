@@ -16,42 +16,30 @@ import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
-@RequestMapping("/employee")
 public class HomeController {
 
     private final EmployeeService employeeService;
 
-    @GetMapping("/home")
-    public String home() {
-        return Pages.HOME;
-    }
-
-    @ModelAttribute("code")
-    public String currentUserName(Principal principal) {
-        return principal.getName();
-    }
-
-    // Hồ sơ nhân viên
-    @GetMapping("/{code}/profile")
-    public String profile(@PathVariable String code, Model model) {
+    @GetMapping("/employee/profile")
+    public String home(Principal principal, Model model) {
+        String code = principal.getName();
         model.addAttribute("profile", employeeService.findByCode(code));
-        return Pages.PROFILE;
+        return "us_profile";
     }
 
-    // Sửa thông tin nhân viên
-    @GetMapping("/{code}/editprofile")
-    public String editProfile(@PathVariable String code, Model model) {
+    @GetMapping("/employee/editprofile")
+    public String editProfile(Principal principal, Model model) {
+        String code = principal.getName();
         model.addAttribute("profile", employeeService.findByCode(code));
-        return Pages.PROFILE_FORM;
+        return "us_profile_form";
     }
 
-    // Save thông tin nhân viên
-    @PostMapping("/save")
+    @PostMapping("/employee/save")
     public String saveProfile(@Valid Employee employee, BindingResult result, RedirectAttributes redirect) {
         if (result.hasErrors()) {
             return Pages.PROFILE_FORM;
         }
         employeeService.save(employee);
-        return "redirect:/employee/" + employee.getCode() + "/profile";
+        return "redirect:/employee/profile";
     }
 }

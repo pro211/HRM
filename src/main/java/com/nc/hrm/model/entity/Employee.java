@@ -15,7 +15,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "employee")
-public class Employee extends BaseEntity {
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +30,9 @@ public class Employee extends BaseEntity {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "avatar")
+    private String avatar;
 
     @Column(name = "identity_number")
     private String identityNumber;
@@ -90,9 +93,6 @@ public class Employee extends BaseEntity {
 
     @Column(name = "admin")
     private boolean isAdmin = false;
-
-    @Column(name = "manager_id")
-    private Integer managerId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")

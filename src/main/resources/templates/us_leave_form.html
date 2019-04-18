@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>Xin nghỉ</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-user">
+                <div class="card-header">
+                    <h5 class="card-title">Khen thưởng & Kỷ luật</h5>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 pr-1">
+                                <div class="form-group">
+                                    <label>Ngày xin nghỉ</label>
+                                    <input type="text" class="form-control" disabled="" placeholder="Company"
+                                           value="01/01/2019">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 pr-1">
+                                <div class="form-group">
+                                    <label>Lý do</label>
+                                    <input type="text" class="form-control" placeholder="Company"
+                                           value="Đỗ Hoàng Việt Hà ">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 pr-1">
+                                <div class="form-group">
+                                    <label>Bắt đầu</label>
+                                    <input type="text" class="form-control" placeholder="Company"
+                                           value="29/05/1995">
+                                </div>
+                            </div>
+                            <div class="col-md-6 pr-1">
+                                <div class="form-group">
+                                    <label>Kết thúc</label>
+                                    <input type="text" class="form-control" placeholder="Company"
+                                           value="29/05/1995">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="update ml-auto mr-auto">
+                                <button type="submit" class="btn btn-primary btn-round">Gửi</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
