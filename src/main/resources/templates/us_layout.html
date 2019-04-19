@@ -35,30 +35,39 @@
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li class="active ">
-                        <a href="./dashboard.html">
+                    <li th:classappend="${profileActive} ? 'active' : ''">
+                        <a th:href="@{/employee/profile}">
                             <i class="nc-icon nc-single-02"></i>
                             <p>Thông tin cá nhân</p>
                         </a>
                     </li>
-                    <li>
+                    <li th:classappend="${contractActive} ? 'active' : ''">
                         <a th:href="@{/employee/contract}">
                             <i class="nc-icon nc-paper"></i>
                             <p>Hợp đồng</p>
                         </a>
                     </li>
-                    <li>
+                    <li th:classappend="${achievement} ? 'active' : ''">
                         <a th:href="@{/employee/achievement}">
                             <i class="nc-icon nc-badge"></i>
                             <p>Khen thưởng & kỷ luật</p>
                         </a>
                     </li>
-                    <li>
+
+                    <li th:classappend="${leaveActive} ? 'active' : ''">
                         <a th:href="@{/employee/leave}">
                             <i class="nc-icon nc-tap-01"></i>
                             <p>Xin nghỉ phép</p>
                         </a>
                     </li>
+
+                    <li th:classappend="${passwordActive} ? 'active' : ''">
+                        <a th:href="@{/employee/password}">
+                            <i class="nc-icon nc-tap-01"></i>
+                            <p>Đổi mật khẩu</p>
+                        </a>
+                    </li>
+
                     <li>
                         <a th:href="@{/logout}">
                             <i class="nc-icon nc-button-power"></i>

@@ -34,7 +34,6 @@
                     <div class="table-responsive">
                         <table class="table">
                             <thead class=" text-primary">
-                            <th width="10px" class="text-center">STT</th>
                             <th>Ngày</th>
                             <th>Lý do</th>
                             <th>Hình thức</th>
@@ -42,9 +41,7 @@
                             <th>Ghi chú</th>
                             </thead>
                             <tbody>
-                            <tr th:each=" a,iterStat: ${achievement}">
-                                <!--tao so thu tu-->
-                                <td th:text="${iterStat.count}"></td>
+                            <tr th:each=" a : ${achievements}">
                                 <td th:text="${a.applyDate}"></td>
                                 <td th:text="${a.reason}"></td>
                                 <td th:if="${a.type}">Khen thưởng</td>

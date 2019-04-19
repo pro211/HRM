@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -24,12 +25,15 @@ public class Leave  {
     private Integer id;
 
     @Column(name = "apply_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate applyDate;
 
     @Column(name = "from_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fromDate;
 
     @Column(name = "to_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate toDate;
 
     @Column(name = "reason")

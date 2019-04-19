@@ -15,7 +15,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "achievements")
+@Table(name = "achievement")
 public class Achievement {
 
     @Id

@@ -23,21 +23,21 @@
                             <th>Ngày Kết thúc</th>
                             <th>Lý do</th>
                             <th>Trạng thái</th>
+                            <th>Hủy</th>
                             </thead>
                             <tbody>
-                            <tr th:each="l : ${leave}">
+                            <tr th:each="l: ${leave}">
                                 <td th:text="${#temporals.format(l.applyDate, 'dd-MM-yyyy')}"></td>
                                 <td th:text="${#temporals.format(l.fromDate, 'dd-MM-yyyy')}"></td>
                                 <td th:text="${#temporals.format(l.toDate, 'dd-MM-yyyy')}"></td>
                                 <td th:text="${l.reason}"></td>
                                 <td th:text="${l.status}"></td>
-                                <!--<td><a th:href="@{/admin/branch/{id}/edit(id=${l.id})}">Sửa</a></td>-->
-                                <!--<td><a th:href="@{/admin/branch/{id}/delete(id=${l.id})}">Xóa</a></td>-->
+                                <td><a th:href="@{/employee/leave/{id}/delete(id=${l.id})}" onclick="return confirm('Bạn có chắc chắn xóa không?')" ><i class="nc-icon nc-basket"></i></a></td>
                             </tr>
                             </tbody>
                         </table>
                         <div class="update ml-auto mr-auto">
-                            <button type="submit" class="btn btn-primary btn-round">Đăng ký</button>
+                            <a class="btn btn-primary btn-round" th:href="@{/employee/newleave}">Đăng ký</a>
                         </div>
                     </div>
                 </div>

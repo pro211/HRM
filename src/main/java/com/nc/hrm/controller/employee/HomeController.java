@@ -28,6 +28,7 @@ public class HomeController {
     @GetMapping("/employee/profile")
     public String home(Authentication authentication, Model model) {
         Employee employee = (Employee) authentication.getPrincipal();
+        model.addAttribute("profileActive", true);
         model.addAttribute("profile", employeeService.findByBusinessName(employee.getBusinessName()));
         return "us_profile";
     }
@@ -35,6 +36,7 @@ public class HomeController {
     @GetMapping("/employee/editprofile")
     public String editProfile(Authentication authentication, Model model) {
         Employee employee = (Employee) authentication.getPrincipal();
+        model.addAttribute("profileActive", true);
         model.addAttribute("profile", employeeService.findByBusinessName(employee.getBusinessName()));
         return "us_profile_form";
     }
