@@ -30,10 +30,11 @@
                         <h5 class="card-title">Thêm phòng ban</h5>
                     </div>
                     <div class="card-body">
-                        <form th:action="@{/admin/department/create}" th:object="${department}" method="post">
+                        <form th:action="@{/admin/department/save}" th:object="${department}" method="post">
                             <div class="row">
                                 <div class="col-md-5 pr-1">
                                     <div class="form-group">
+                                        <input type="hidden" th:field="*{id}">
                                         <label>Mã phòng ban</label>
                                         <input type="text" class="form-control" th:disabled=""
                                                th:field="*{code}">

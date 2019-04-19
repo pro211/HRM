@@ -46,7 +46,7 @@ public class AdminDepartmentController {
     @PostMapping("/admin/department/save")
     public String save(@Valid Department department, BindingResult result) {
         if (result.hasErrors()) {
-            return Pages.AD_DEPARTMENT_FORM;
+            return "ad.department.add";
         }
         departmentService.save(department);
         return "redirect:/admin/department";
