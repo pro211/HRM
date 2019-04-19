@@ -5,11 +5,15 @@ import com.nc.hrm.model.service.EmployeeService;
 import com.nc.hrm.util.Pages;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.thymeleaf.extras.springsecurity5.auth.Authorization;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -20,17 +24,18 @@ public class HomeController {
 
     private final EmployeeService employeeService;
 
+
     @GetMapping("/employee/profile")
-    public String home(Principal principal, Model model) {
-        String code = principal.getName();
-        model.addAttribute("profile", employeeService.findByCode(code));
+    public String home(Authentication authentication, Model model) {
+        Employee employee = (Employee) authentication.getPrincipal();
+        model.addAttribute("profile", employeeService.findByBusinessName(employee.getBusinessName()));
         return "us_profile";
     }
 
     @GetMapping("/employee/editprofile")
-    public String editProfile(Principal principal, Model model) {
-        String code = principal.getName();
-        model.addAttribute("profile", employeeService.findByCode(code));
+    public String editProfile(Authentication authentication, Model model) {
+        Employee employee = (Employee) authentication.getPrincipal();
+        model.addAttribute("profile", employeeService.findByBusinessName(employee.getBusinessName()));
         return "us_profile_form";
     }
 

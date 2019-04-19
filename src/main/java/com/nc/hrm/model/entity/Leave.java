@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "leave")
+@Table(name = "leaves")
 public class Leave  {
 
     @Id
@@ -38,7 +38,7 @@ public class Leave  {
     @Column(name = "status")
     private Integer status;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 }

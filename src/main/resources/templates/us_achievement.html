@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{us_layout}">
 <head>
     <meta charset="utf-8"/>
     <link rel="apple-touch-icon" sizes="76x76" href="../static/assets/img/apple-icon.png">
@@ -22,58 +23,37 @@
     <link href="../static/assets/demo/demo.css" rel="stylesheet"/>
 </head>
 <body>
-<div class="wrapper">
-    <div class="main-panel">
-        <div class="content">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Khen thưởng & Kỷ luật trong tháng</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead class=" text-primary">
-                                    <th width="10px" class="text-center">
-                                        STT
-                                    </th>
-                                    <th>
-                                        Ngày
-                                    </th>
-                                    <th>
-                                        Lý do
-                                    </th>
-                                    <th>
-                                        Hình thức
-                                    </th>
-                                    <th>
-                                        Số tiền
-                                    </th>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td class="text-center">
-                                           1
-                                        </td>
-                                        <td>
-                                            29/05/95
-                                        </td>
-                                        <td>
-                                            Ăn quà vặt
-                                        </td>
-                                        <td >
-                                            Khen thưởng
-                                        </td>
-                                        <td >
-                                            $36,738
-                                        </td>
-
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Khen thưởng & Kỷ luật trong tháng</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class=" text-primary">
+                            <th width="10px" class="text-center">STT</th>
+                            <th>Ngày</th>
+                            <th>Lý do</th>
+                            <th>Hình thức</th>
+                            <th>Số tiền</th>
+                            <th>Ghi chú</th>
+                            </thead>
+                            <tbody>
+                            <tr th:each=" a,iterStat: ${achievement}">
+                                <!--tao so thu tu-->
+                                <td th:text="${iterStat.count}"></td>
+                                <td th:text="${a.applyDate}"></td>
+                                <td th:text="${a.reason}"></td>
+                                <td th:if="${a.type}">Khen thưởng</td>
+                                <td th:if="!${a.type}">Kỷ luật</td>
+                                <td th:text="${a.amount}"></td>
+                                <td th:text="${a.note}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{us_layout}">
 <head>
     <title>xin nghỉ phép</title>
 </head>
@@ -17,45 +18,21 @@
                     <div class="table-responsive">
                         <table class="table">
                             <thead class=" text-primary">
-                            <th width="10px" class="text-center">
-                                STT
-                            </th>
-                            <th>
-                                Ngày xin nghỉ
-                            </th>
-                            <th>
-                                Bắt đầu
-                            </th>
-                            <th>
-                                Kết thúc
-                            </th>
-                            <th>
-                                Lý do
-                            </th>
-                            <th>
-                                Trạng thái
-                            </th>
+                            <th>Ngày xin nghỉ</th>
+                            <th>Ngày Bắt đầu</th>
+                            <th>Ngày Kết thúc</th>
+                            <th>Lý do</th>
+                            <th>Trạng thái</th>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td class="text-center">
-                                    1
-                                </td>
-                                <td>
-                                    Niger
-                                </td>
-                                <td>
-                                    Oud-Turnhout
-                                </td>
-                                <td>
-                                    $36,738
-                                </td>
-                                <td>
-                                    $36,738
-                                </td>
-                                <td>
-                                    $36,738
-                                </td>
+                            <tr th:each="l : ${leave}">
+                                <td th:text="${#temporals.format(l.applyDate, 'dd-MM-yyyy')}"></td>
+                                <td th:text="${#temporals.format(l.fromDate, 'dd-MM-yyyy')}"></td>
+                                <td th:text="${#temporals.format(l.toDate, 'dd-MM-yyyy')}"></td>
+                                <td th:text="${l.reason}"></td>
+                                <td th:text="${l.status}"></td>
+                                <!--<td><a th:href="@{/admin/branch/{id}/edit(id=${l.id})}">Sửa</a></td>-->
+                                <!--<td><a th:href="@{/admin/branch/{id}/delete(id=${l.id})}">Xóa</a></td>-->
                             </tr>
                             </tbody>
                         </table>

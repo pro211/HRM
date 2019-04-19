@@ -9,16 +9,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity
 @Table(name = "employee")
 public class Employee implements UserDetails {
@@ -26,16 +24,16 @@ public class Employee implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     @Column(name = "business_name")
-    private String code;
+    private String businessName;
 
     @Column(name = "password")
     private String password;
 
     @Column(name = "name")
-    private String name;
+    private String employeeName;
 
     @Column(name = "avatar")
     private String avatar;
@@ -43,8 +41,8 @@ public class Employee implements UserDetails {
     @Column(name = "identity_number")
     private String identityNumber;
 
-    @Column(name = "gender", nullable = false)
-    private Boolean gender = true;
+    @Column(name = "gender")
+    private Boolean gender;
 
     @Column(name = "nationality")
     private String nationality;
@@ -95,38 +93,34 @@ public class Employee implements UserDetails {
     private LocalDate joinedDate;
 
     @Column(name = "active")
-    private boolean isActive = true;
+    private boolean isActive;
 
     @Column(name = "admin")
-    private boolean isAdmin = false;
+    private boolean isAdmin;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
-    private Set<Contract> contract;
+    private Set<Contract> contracts;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
     private Set<Leave> leave;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
-    private Set<Achievement> achievement;
+    private Set<Achievement> achievements;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        if(isAdmin){
-            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        } else {
-            authorities.add(new SimpleGrantedAuthority("ROLE_EMPLOYEE"));
-        }
-        return authorities;
+        return isAdmin
+                ? Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"))
+                : Arrays.asList(new SimpleGrantedAuthority("ROLE_EMPLOYEE")) ;
     }
 
     @Override
     public String getUsername() {
-        return code;
+        return businessName;
     }
 
     @Override

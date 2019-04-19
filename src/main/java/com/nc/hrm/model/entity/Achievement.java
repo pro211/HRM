@@ -15,7 +15,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "achievement")
+@Table(name = "achievements")
 public class Achievement {
 
     @Id
@@ -38,7 +38,7 @@ public class Achievement {
     @Column(name = "note")
     private String note;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 }

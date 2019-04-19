@@ -33,10 +33,10 @@ public class Department {
     @Column(name = "active")
     private Boolean active;
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.REMOVE)
     private Set<Employee> employee;
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
-    private Set<Jobtitle> jobtitles;
+    @OneToMany(mappedBy = "department", cascade = CascadeType.REMOVE)
+    private Set<JobTitle> jobTitles;
 
 }

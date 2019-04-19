@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "contract")
+@Table(name = "contracts")
 public class Contract {
 
     @Id
@@ -52,6 +52,6 @@ public class Contract {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "jobtitle_id")
-    private Jobtitle jobtitle;
+    private JobTitle jobTitle;
 
 }

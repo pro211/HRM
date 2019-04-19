@@ -26,7 +26,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Employee employee = employeeRepository.findByCode(username);
+        Employee employee = employeeRepository.findByBusinessName(username);
         if (Objects.isNull(employee)) {
             throw new UsernameNotFoundException("User not found");
         }
