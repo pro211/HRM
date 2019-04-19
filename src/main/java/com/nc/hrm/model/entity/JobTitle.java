@@ -15,7 +15,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "jobTitle")
+@Table(name = "jobtitle")
 public class JobTitle {
 
     @Id
@@ -36,7 +36,7 @@ public class JobTitle {
     @JoinColumn(name = "department_id")
     private Department department;
 
-    @OneToMany(mappedBy = "jobTitle", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "position", cascade = CascadeType.REMOVE)
     private Set<Contract> contracts;
 
 }

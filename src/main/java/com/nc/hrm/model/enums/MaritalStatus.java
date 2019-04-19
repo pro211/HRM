@@ -3,6 +3,8 @@ package com.nc.hrm.model.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Arrays;
+
 @Getter
 @AllArgsConstructor
 public enum MaritalStatus {
@@ -15,4 +17,7 @@ public enum MaritalStatus {
     private int value;
     private String description;
 
+    public static String textOf(int value) {
+        return MaritalStatus.values()[value].description;
+    }
 }

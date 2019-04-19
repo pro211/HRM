@@ -17,7 +17,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
-public class DepartmentController {
+public class AdminDepartmentController {
 
     private final DepartmentService departmentService;
 
@@ -25,21 +25,21 @@ public class DepartmentController {
     @GetMapping("/admin/department")
     public String index(ModelMap model) {
         model.addAttribute("department", departmentService.findAll());
-        return Pages.AD_DEPARTMENT_LIST;
+        return "ad.department";
     }
 
     // Create
     @GetMapping("/admin/department/create")
     public String create(Model model) {
         model.addAttribute("department", new Department());
-        return Pages.AD_DEPARTMENT_FORM;
+        return "ad.department.add";
     }
 
     // Edit
     @GetMapping("/admin/department/{id}/edit")
     public String edit(@PathVariable int id, Model model) {
         model.addAttribute("department", departmentService.finById(id));
-        return Pages.AD_DEPARTMENT_FORM;
+        return "ad.department.add";
     }
 
     // Save or Update
