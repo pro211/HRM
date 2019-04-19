@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title"> Danh sách hợp đồng</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div class="update ml-auto mr-auto">
+                            <a th:href="@{/admin/contract/create}" type="submit" class="btn btn-primary btn-round">Thêm
+                                hợp đồng</a>
+                        </div>
+                        <table id="example" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Mã hợp đồng</th>
+                                <th>Họ và tên</th>
+                                <th>Phòng ban</th>
+                                <th>Chức vụ</th>
+                                <th>Thời gian</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="contract, stat : ${contracts}">
+                                <td th:text="${stat.count}"></td>
+                                <td th:text="${contract.code}"></td>
+                                <td th:text="${contract.employee.employeeName}"></td>
+                                <td th:text="${contract.position.department.name}"></td>
+                                <td th:text="${contract.position.name}"></td>
+                                <td th:text="${#temporals.format(contract.startDate, 'dd/MM/yyyy') + '-' + #temporals.format(contract.startDate, 'dd/MM/yyyy')}"></td>
+                                <td>
+                                    <form th:action="@{/employee/contract/${contract.id}}">
+                                        <button class="btn btn-primary btn-round" type="submit">Chi tiết</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').dataTable();
+        });
+    </script>
+</body>
+</html>
