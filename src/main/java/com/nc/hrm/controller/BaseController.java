@@ -18,6 +18,6 @@ public class BaseController {
 
     @GetMapping("/admin/home")
     public String homeAdmin() {
-        return "base/index";
+        return "admin/home";
     }
 }

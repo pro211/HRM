@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+    <section layout:fragment="content">
+        <div class="table-header mb-2">
+            <h2>Danh sách Phòng Ban</h2>
+            <button class="btn btn-success aBtn" data-toggle="modal" data-target="#departmentModal">
+                Thêm
+            </button>
+        </div>
+        <table id="departmentsTable" class="table table-hover table-bordered">
+            <thead>
+                <th>#</th>
+                <th>Mã Phòng</th>
+                <th>Tên Phòng</th>
+                <th>Trạng Thái</th>
+                <th th:colspan="2">Hành động</th>
+            </thead>
+            <tbody>
+            <tr th:each=" department: ${departments}">
+                <td th:text="${department.id}"></td>
+                <td th:text="${department.code}"></td>
+                <td th:text="${department.name}"></td>
+                <td th:text="${department.active} ? 'Hoạt động' : 'Tạm dừng'"></td>
+                <td>
+                    <a class="btn btn-primary eBtn"  th:href="@{/admin/department/find/(id=${department.id})}"
+                       data-toggle="modal" data-target="#departmentModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>
+                    <a class="btn btn-danger dBtn" th:href="@{/admin/department/delete/(id=${department.id})}"
+                       data-toggle="modal" data-target="#deleteModal"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!--        Pagination-->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#"><i class="fa fa-backward" aria-hidden="true"> </i></a></li>
+                <li class="page-item" th:each="i : ${#numbers.sequence(0,departments.totalPages - 1)}" >
+                    <a th:text="${i}" class="page-link" th:href="@{/admin/department/(page=${i})}">
+                    </a></li>
+                <li class="page-item"><a class="page-link" href="#"><i class="fa fa-forward" aria-hidden="true"></i> </a></li>
+            </ul>
+        </nav>
+        <!--        Show Form Edit-->
+        <div class="department-form">
+            <form th:action="@{/admin/department/save}" method="post" id="myForm">
+                <div class="modal fade" id="departmentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="departmentTitle">Phòng ban</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" class="form-control" id="id" name="id">
+                                <div class="form-group">
+                                    <label for="code" class="col-form-label">Mã Phòng Ban:</label>
+                                    <input type="text" class="form-control" id="code" name="code" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name" class="col-form-label">Tên Phòng Ban:</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="active" class="col-form-label">Trạng thái:</label>
+                                    <select class="form-control" id="active" name="active">
+                                        <option value="1">Hoạt động</option>
+                                        <option value="0">Tạm dừng</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="note" class="col-form-label">Ghi chú:</label>
+                                    <textarea class="form-control" id="note" name="note"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" value="Save"></input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+<!--        Confirm delete-->
+        <div class="modal" id="deleteModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p class="alert alert-danger">Bạn có muốn xóa phòng ban này?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-danger" href="" id="delBtn"> Delete </a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> Close </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <th:block layout:fragment="script">
+        <script>
+            $(document).ready(function(){
+                $('.table .eBtn').on('click',function(event){
+                    var href = $(this).attr('href');
+                    $.get(href, function(department,status){
+                        $('.department-form #id').val(department.id)
+                        $('.department-form #code').val(department.code)
+                        $('.department-form #name').val(department.name)
+                        $('.department-form #active').val(department.active ? 1 : 0)
+                        $('.department-form #note').val(department.note)
+                    })
+                });
+
+                $('.table .dBtn').on('click',function(event){
+                    var href = $(this).attr('href');
+                    console.log(href);
+                    $('#deleteModal #delBtn').attr('href',href);
+                });
+
+                $('.aBtn').on('click',function(event){
+                    $('.department-form #id').val('')
+                    $('.department-form #code').val('')
+                    $('.department-form #name').val('')
+                    $('.department-form #active').val(1)
+                    $('.department-form #note').val('')
+                });
+                // validate
+                jQuery.validator.addMethod('lettersonly', function(value, element) {
+                    return this.optional(element) || /^[a-z àáâãèéêếìíòóôõùúăđĩũơưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởụủứừửữự]+$/i.test(value);
+                }, "Letters and spaces only please");
+
+                $('#myForm').validate({
+                    rules: {
+                        code: {
+                            required: true,
+                            minlength: 2
+                        },
+                        name: {
+                            required: true,
+                            lettersonly: true
+                        }
+                    },
+                    messages: {
+                        code: {
+                            required: 'Mã phòng ban không được để trống!',
+                            minlength: 'Mã phòng ban tối thiểu 2 ký tự!'
+                        },
+                        name: {
+                            required: 'Tên phòng ban không được để trống!',
+                            lettersonly: 'Tên không hợp lệ!'
+                        }
+                    }
+                });
+            })
+        </script>
+    </th:block>
+</body>
+</html>

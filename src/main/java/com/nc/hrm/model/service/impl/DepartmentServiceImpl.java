@@ -5,11 +5,9 @@ import com.nc.hrm.model.repository.DepartmentRepository;
 import com.nc.hrm.model.service.DepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
-
 
 @Service
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
@@ -18,8 +16,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     private final DepartmentRepository departmentRepository;
 
     @Override
-    public List<Department> findAll() {
-        return departmentRepository.findAll();
+    public Page<Department> findAll(Pageable page) {
+        return departmentRepository.findAll(page);
     }
 
     @Override
@@ -28,8 +26,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Optional<Department> finById(int id) {
-        return departmentRepository.findById(id);
+    public Department findOne(int id) {
+        return departmentRepository.getOne(id);
     }
 
     @Override

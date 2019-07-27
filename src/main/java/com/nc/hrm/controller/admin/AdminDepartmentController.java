@@ -1,19 +1,20 @@
 package com.nc.hrm.controller.admin;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nc.hrm.model.entity.Department;
 import com.nc.hrm.model.service.DepartmentService;
-import com.nc.hrm.util.Pages;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Controller
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
@@ -21,41 +22,32 @@ public class AdminDepartmentController {
 
     private final DepartmentService departmentService;
 
-    // Index
+    // List
     @GetMapping("/admin/department")
-    public String index(ModelMap model) {
-        model.addAttribute("department", departmentService.findAll());
-        return "ad.department";
+    public String getDepartments(Model model, @RequestParam(defaultValue="0") int page) throws JsonGenerationException, JsonMappingException, IOException {
+        model.addAttribute("departments", departmentService.findAll(PageRequest.of(page, 4)));
+        return "admin/departments";
     }
 
-    // Create
-    @GetMapping("/admin/department/create")
-    public String create(Model model) {
-        model.addAttribute("department", new Department());
-        return "ad.department.add";
-    }
-
-    // Edit
-    @GetMapping("/admin/department/{id}/edit")
-    public String edit(@PathVariable int id, Model model) {
-        model.addAttribute("department", departmentService.finById(id));
-        return "ad.department.add";
-    }
-
-    // Save or Update
+    // Save
     @PostMapping("/admin/department/save")
-    public String save(@Valid Department department, BindingResult result) {
-        if (result.hasErrors()) {
-            return "ad.department.add";
-        }
+    public String save(Department department) {
         departmentService.save(department);
         return "redirect:/admin/department";
     }
 
     // Delete
-    @GetMapping("/admin/department/{id}/delete")
-    public String delete(@PathVariable int id) {
+    @GetMapping("/admin/department/delete")
+    public String delete(Integer id) {
         departmentService.delete(id);
         return "redirect:/admin/department";
+    }
+
+    // getOne
+    @GetMapping("/admin/department/find")
+    @ResponseBody
+    public Department getOne(Integer id) {
+        Department department = departmentService.findOne(id);
+        return department;
     }
 }
