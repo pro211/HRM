@@ -11,9 +11,13 @@
     <section layout:fragment="content">
         <div class="table-header mb-2">
             <h2>Danh sách Phòng Ban</h2>
-            <button class="btn btn-success aBtn" data-toggle="modal" data-target="#departmentModal">
-                Thêm
-            </button>
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-success aBtn" data-toggle="modal" data-target="#departmentModal"> Thêm </button>
+                <form class="form-inline">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm phòng ban" aria-label="Search">
+                    <button class="btn btn btn-outline-info" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </form>
+            </div>
         </div>
         <table id="departmentsTable" class="table table-hover table-bordered">
             <thead>
@@ -41,11 +45,15 @@
         <!--        Pagination-->
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#"><i class="fa fa-backward" aria-hidden="true"> </i></a></li>
-                <li class="page-item" th:each="i : ${#numbers.sequence(0,departments.totalPages - 1)}" >
-                    <a th:text="${i}" class="page-link" th:href="@{/admin/department/(page=${i})}">
+                <li class="page-item"><a class="page-link" th:href="@{/admin/department/(page=${currentPage} gt 0 ? ${currentPage} - 1 : 0)}">
+                    <i class="fa fa-backward" aria-hidden="true"> </i></a></li>
+                <li class="page-item" th:each="i : ${#numbers.sequence(0,totalPage)}"
+                    th:classappend="${currentPage == i}? 'active': ''" >
+                    <a th:text="${i+1}" class="page-link" th:href="@{/admin/department/(page=${i})}">
                     </a></li>
-                <li class="page-item"><a class="page-link" href="#"><i class="fa fa-forward" aria-hidden="true"></i> </a></li>
+                <li class="page-item">
+                    <a class="page-link" th:href="@{/admin/department/(page=${currentPage} lt ${totalPage} ? ${currentPage} + 1 : ${totalPage})}">
+                    <i class="fa fa-forward" aria-hidden="true"></i> </a></li>
             </ul>
         </nav>
         <!--        Show Form Edit-->

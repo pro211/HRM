@@ -25,7 +25,10 @@ public class AdminDepartmentController {
     // List
     @GetMapping("/admin/department")
     public String getDepartments(Model model, @RequestParam(defaultValue="0") int page) throws JsonGenerationException, JsonMappingException, IOException {
-        model.addAttribute("departments", departmentService.findAll(PageRequest.of(page, 4)));
+        model.addAttribute("departments", departmentService.findAll(PageRequest.of(page, 5)));
+        model.addAttribute("currentPage", page);
+        int totalPage = departmentService.findAll(PageRequest.of(page, 4)).getTotalPages() -1;
+        model.addAttribute("totalPage", totalPage);
         return "admin/departments";
     }
 
