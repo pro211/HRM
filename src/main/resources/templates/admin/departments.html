@@ -14,18 +14,13 @@
             <div class="d-flex justify-content-between">
                 <button class="btn btn-success aBtn" data-toggle="modal" data-target="#departmentModal"> Thêm </button>
                 <form class="form-inline">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm phòng ban" aria-label="Search">
-                    <button class="btn btn btn-outline-info" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    <input id="filter" class="form-control mr-sm-2" type="search" placeholder="&#xF002; Search"
+                           style="font-family:Arial, FontAwesome" aria-label="Search">
                 </form>
             </div>
         </div>
         <table id="departmentsTable" class="table table-hover table-bordered">
             <thead>
-                <th>#</th>
-                <th>Mã Phòng</th>
-                <th>Tên Phòng</th>
-                <th>Trạng Thái</th>
-                <th th:colspan="2">Hành động</th>
             </thead>
             <tbody>
             <tr th:each=" department: ${departments}">
@@ -115,61 +110,7 @@
         </div>
     </section>
     <th:block layout:fragment="script">
-        <script>
-            $(document).ready(function(){
-                $('.table .eBtn').on('click',function(event){
-                    var href = $(this).attr('href');
-                    $.get(href, function(department,status){
-                        $('.department-form #id').val(department.id)
-                        $('.department-form #code').val(department.code)
-                        $('.department-form #name').val(department.name)
-                        $('.department-form #active').val(department.active ? 1 : 0)
-                        $('.department-form #note').val(department.note)
-                    })
-                });
-
-                $('.table .dBtn').on('click',function(event){
-                    var href = $(this).attr('href');
-                    console.log(href);
-                    $('#deleteModal #delBtn').attr('href',href);
-                });
-
-                $('.aBtn').on('click',function(event){
-                    $('.department-form #id').val('')
-                    $('.department-form #code').val('')
-                    $('.department-form #name').val('')
-                    $('.department-form #active').val(1)
-                    $('.department-form #note').val('')
-                });
-                // validate
-                jQuery.validator.addMethod('lettersonly', function(value, element) {
-                    return this.optional(element) || /^[a-z àáâãèéêếìíòóôõùúăđĩũơưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởụủứừửữự]+$/i.test(value);
-                }, "Letters and spaces only please");
-
-                $('#myForm').validate({
-                    rules: {
-                        code: {
-                            required: true,
-                            minlength: 2
-                        },
-                        name: {
-                            required: true,
-                            lettersonly: true
-                        }
-                    },
-                    messages: {
-                        code: {
-                            required: 'Mã phòng ban không được để trống!',
-                            minlength: 'Mã phòng ban tối thiểu 2 ký tự!'
-                        },
-                        name: {
-                            required: 'Tên phòng ban không được để trống!',
-                            lettersonly: 'Tên không hợp lệ!'
-                        }
-                    }
-                });
-            })
-        </script>
+        <script th:src="@{/js/department.js}"></script>
     </th:block>
 </body>
 </html>
