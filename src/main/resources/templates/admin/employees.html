@@ -24,20 +24,85 @@
             <thead>
             </thead>
             <tbody>
-            <tr th:each=" department: ${departments}">
-                <td th:text="${department.id}"></td>
-                <td th:text="${department.code}"></td>
-                <td th:text="${department.name}"></td>
-                <td th:text="${department.active} ? 'Hoạt động' : 'Tạm dừng'"></td>
+            <tr th:each=" employee: ${employees}">
+                <td th:text="${employee.id}"></td>
+                <td> <img th:src="@{'/images/'+${employee.avatar}}" style="max-width: 100%; height: 80px"/> </td>
+                <td th:text="${employee.businessName}"></td>
+                <td th:text="${employee.employeeName}"></td>
+                <td th:text="${employee.department.getCode()}"></td>
+                <td th:text="${employee.active ? 'Đang làm' : 'Đã nghỉ việc'}"></td>
                 <td>
-                    <a class="btn btn-primary eBtn"  th:href="@{/admin/department/find/(id=${department.id})}"
+                    <a class="btn btn-primary eBtn"  th:href="@{/admin/employee/find/(id=${employee.id})}"
                        data-toggle="modal" data-target="#departmentModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>
-                    <a class="btn btn-danger dBtn" th:href="@{/admin/department/delete/(id=${department.id})}"
+                    <a class="btn btn-danger dBtn" th:href="@{/admin/employee/delete/(id=${employee.id})}"
                        data-toggle="modal" data-target="#deleteModal"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
                 </td>
             </tr>
             </tbody>
         </table>
+
+<!--        Pagination-->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item" th:classappend="${currentPage} == 0 ? 'disabled' : ''">
+                    <a class="page-link" th:href="@{/admin/employee/(page=${ currentPage - 1 })}">
+                    <i class="fa fa-backward" aria-hidden="true"> </i></a></li>
+                <li class="page-item" th:each="i : ${#numbers.sequence(0,totalPage)}"
+                    th:classappend="${currentPage == i}? 'active': ''" >
+                    <a th:text="${i+1}" class="page-link" th:href="@{/admin/employee/(page=${i})}">
+                    </a></li>
+                <li class="page-item" th:classappend="${currentPage} == ${totalPage} ? 'disabled' : ''">
+                    <a class="page-link" th:href="@{/admin/department/(page=${ currentPage + 1 })}">
+                        <i class="fa fa-forward" aria-hidden="true"></i> </a></li>
+            </ul>
+        </nav>
+
+        <!--        Show Form Edit-->
+        <div class="employee-form">
+            <form th:action="@{/admin/employee/save}" method="post" id="myForm">
+                <div class="modal fade" id="employeeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="employeeTitle">Nhân sự</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" class="form-control" id="id" name="id">
+                                <div class="form-group">
+                                    <label for="code" class="col-form-label">Mã Phòng Ban:</label>
+                                    <input type="text" class="form-control" id="code" name="code" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name" class="col-form-label">Tên Phòng Ban:</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="active" class="col-form-label">Trạng thái:</label>
+                                    <select class="form-control" id="active" name="active">
+                                        <option value="1">Hoạt động</option>
+                                        <option value="0">Tạm dừng</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="note" class="col-form-label">Ghi chú:</label>
+                                    <textarea class="form-control" id="note" name="note"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" value="Save"></input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </section>
+    <th:block layout:fragment="script">
+            <script th:src="@{/js/employee.js}"></script>
+    </th:block>
 </body>
 </html>

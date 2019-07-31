@@ -43,12 +43,12 @@ public class ChangePasswordController {
             return "us_changepassword";
         }
 
-        Optional<Employee> employee = employeeService.finById(changePassword.getId());
-        String checkPass = employee.get().getPassword();
+        Employee employee = employeeService.finById(changePassword.getId());
+        String checkPass = employee.getPassword();
         if(checkPass.equals(changePassword.getPassword())){
             if(changePassword.getNewPassword().equals(changePassword.getVerifyPassword())){
-                employee.get().setPassword(changePassword.getNewPassword());
-                employeeService.save(employee.get());
+                employee.setPassword(changePassword.getNewPassword());
+                employeeService.save(employee);
             }
         }
         return "redirect:/employee/profile";
