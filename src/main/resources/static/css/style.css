@@ -1,0 +1,11 @@
+aside{
+    min-height: 750px;
+    background: #E9ECEF;
+}
+.table-header{
+    margin-bottom: 2em;
+}
+.error{
+    color: red;
+    font-style: italic;
+}

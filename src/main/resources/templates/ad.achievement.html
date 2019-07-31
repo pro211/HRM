@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Khen thưởng và kỷ luật</title>
+    <link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon.png">
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+          name='viewport'/>
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="../static/css/paper-dashboard.css?v=2.0.0" rel="stylesheet"/>
+    <!-- CSS Just for demo purpos, don't include it in your project -->
+    <link href="demo/demo.css" rel="stylesheet"/>
+    <!-- <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet"/>-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="wrapper ">
+    <div class="main-panel">
+        <div class="content">
+            <div class="update ml-auto mr-auto">
+                <button type="submit" class="btn btn-primary btn-round" style="float: left" id="bntable">Danh sách thưởng</button>
+            </div>
+            <div class="update ml-auto mr-auto">
+                <button type="submit" class="btn btn-primary btn-round" style="clear: left" id ="bntable2">Danh sách kỷ luật</button>
+            </div>
+            <!-- Danh sách thưởng-->
+            <div class="row" id="table">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title"> Danh sách thưởng</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Mã nhân viên</th>
+                                        <th>Họ và tên</th>
+                                        <th>Tên đăng nhập</th>
+                                        <th>Mật khẩu</th>
+                                        <th>Tình trạng</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Danh sách kỷ luật -->
+            <div class="row" id="table2">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title"> Danh sách kỷ luật</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="example2" class="table table-striped table-bordered" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Mã nhân viên</th>
+                                        <th>Họ và tên</th>
+                                        <th>Tên đăng nhập</th>
+                                        <th>Mật khẩu</th>
+                                        <th>Tình trạng</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="update ml-auto mr-auto">
+                <button type="submit" class="btn btn-primary btn-round">Thêm khen thưởng và kỷ luật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#example').dataTable();
+        $('#example2').dataTable();
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://wwww.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <aside th:fragment="admin" class="list-group">
+            <a th:href="@{/admin/home}" class="list-group-item list-group-item-action list-group-item-warning">
+                <i class="fa fa-tachometer" aria-hidden="true"></i> TRANG CHỦ</a>
+            <a th:href="@{/admin/department}" class="list-group-item list-group-item-action list-group-item-warning">
+                <i class="fa fa-cube" aria-hidden="true"></i> QUẢN LÝ PHÒNG BAN</a>
+            <a href="#" class="list-group-item list-group-item-action list-group-item-warning">
+                <i class="fa fa-users" aria-hidden="true"></i> QUẢN LÝ NHÂN VIÊN</a>
+            <a href="#" class="list-group-item list-group-item-action list-group-item-warning">
+                <i class="fa fa-id-card" aria-hidden="true"></i> QUẢN LÝ HỢP ĐỒNG</a>
+            <a href="#" class="list-group-item list-group-item-action list-group-item-warning">
+                <i class="fa fa-briefcase" aria-hidden="true"></i> QUẢN LÝ CHỨC VỤ</a>
+            <a href="#" class="list-group-item list-group-item-action list-group-item-warning">
+                <i class="fa fa-envelope" aria-hidden="true"></i> QUẢN LÝ NGHỈ PHÉP</a>
+            <a href="#" class="list-group-item list-group-item-action list-group-item-warning">
+                <i class="fa fa-trophy" aria-hidden="true"></i> KHEN THƯỞNG KỶ LUẬT</a>
+        </aside>
+
+        <div th:fragment="employee">
+
+        </div>
+    </body>
+</html>

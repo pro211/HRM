@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{us_layout}">
+<head>
+    <title>xin nghỉ phép</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Thông tin nghỉ phép</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class=" text-primary">
+                            <th>Ngày xin nghỉ</th>
+                            <th>Ngày Bắt đầu</th>
+                            <th>Ngày Kết thúc</th>
+                            <th>Lý do</th>
+                            <th>Trạng thái</th>
+                            <th>Hủy</th>
+                            </thead>
+                            <tbody>
+                            <tr th:each="l: ${leave}">
+                                <td th:text="${#temporals.format(l.applyDate, 'dd-MM-yyyy')}"></td>
+                                <td th:text="${#temporals.format(l.fromDate, 'dd-MM-yyyy')}"></td>
+                                <td th:text="${#temporals.format(l.toDate, 'dd-MM-yyyy')}"></td>
+                                <td th:text="${l.reason}"></td>
+                                <td th:text="${l.status}"></td>
+                                <td><a th:href="@{/employee/leave/{id}/delete(id=${l.id})}" onclick="return confirm('Bạn có chắc chắn xóa không?')" ><i class="nc-icon nc-basket"></i></a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="update ml-auto mr-auto">
+                            <a class="btn btn-primary btn-round" th:href="@{/employee/newleave}">Đăng ký</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
