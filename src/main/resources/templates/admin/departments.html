@@ -8,107 +8,127 @@
 
 </head>
 <body>
-    <section layout:fragment="content">
-        <div class="table-header mb-2">
-            <h2>Danh sách Phòng Ban</h2>
-            <div class="d-flex justify-content-between">
-                <button class="btn btn-success aBtn" data-toggle="modal" data-target="#departmentModal"> Thêm </button>
-                <form class="form-inline">
-                    <input id="filter" class="form-control mr-sm-2" type="search" placeholder="&#xF002; Search"
-                           style="font-family:Arial, FontAwesome" aria-label="Search">
-                </form>
+        <section layout:fragment="content">
+            <div class="table-header mb-2">
+                <h2>Danh sách Phòng Ban</h2>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-success aBtn" data-toggle="modal" data-target="#departmentModal"> Thêm </button>
+                    <form class="form-inline">
+                        <input id="filter" class="form-control mr-sm-2" type="search" placeholder="&#xF002; Search"
+                               style="font-family:Arial, FontAwesome" aria-label="Search">
+                    </form>
+                </div>
             </div>
-        </div>
-        <table id="departmentsTable" class="table table-hover table-bordered">
-            <thead>
-            </thead>
-            <tbody>
-            <tr th:each=" department: ${departments}">
-                <td th:text="${department.id}"></td>
-                <td th:text="${department.code}"></td>
-                <td th:text="${department.name}"></td>
-                <td th:text="${department.active} ? 'Hoạt động' : 'Tạm dừng'"></td>
-                <td>
-                    <a class="btn btn-primary eBtn"  th:href="@{/admin/department/find/(id=${department.id})}"
-                       data-toggle="modal" data-target="#departmentModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>
-                    <a class="btn btn-danger dBtn" th:href="@{/admin/department/delete/(id=${department.id})}"
-                       data-toggle="modal" data-target="#deleteModal"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <!--        Pagination-->
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" th:href="@{/admin/department/(page=${currentPage} gt 0 ? ${currentPage} - 1 : 0)}">
-                    <i class="fa fa-backward" aria-hidden="true"> </i></a></li>
-                <li class="page-item" th:each="i : ${#numbers.sequence(0,totalPage)}"
-                    th:classappend="${currentPage == i}? 'active': ''" >
-                    <a th:text="${i+1}" class="page-link" th:href="@{/admin/department/(page=${i})}">
-                    </a></li>
-                <li class="page-item">
-                    <a class="page-link" th:href="@{/admin/department/(page=${currentPage} lt ${totalPage} ? ${currentPage} + 1 : ${totalPage})}">
-                    <i class="fa fa-forward" aria-hidden="true"></i> </a></li>
-            </ul>
-        </nav>
-        <!--        Show Form Edit-->
-        <div class="department-form">
-            <form th:action="@{/admin/department/save}" method="post" id="myForm">
-                <div class="modal fade" id="departmentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="departmentTitle">Phòng ban</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <input type="hidden" class="form-control" id="id" name="id">
-                                <div class="form-group">
-                                    <label for="code" class="col-form-label">Mã Phòng Ban:</label>
-                                    <input type="text" class="form-control" id="code" name="code" required>
+            <table id="departmentsTable" class="table table-hover table-bordered">
+                <thead>
+                </thead>
+                <tbody>
+                <tr th:each=" department: ${departments}">
+                    <td th:text="${department.id}"></td>
+                    <td th:text="${department.code}"></td>
+                    <td th:text="${department.name}"></td>
+                    <td th:text="${department.active} ? 'Hoạt động' : 'Tạm dừng'"></td>
+                    <td>
+                        <a class="btn btn-primary eBtn"  th:href="@{/admin/department/find/(id=${department.id})}"
+                           data-toggle="modal" data-target="#departmentModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>
+                        <a class="btn btn-danger dBtn" th:href="@{/admin/department/delete/(id=${department.id})}"
+                           data-toggle="modal" data-target="#deleteModal"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!--            For Filter-->
+            <table id="departmentFilters" class="table table-hover table-bordered">
+                <thead>
+                </thead>
+                <tbody>
+                <tr th:each=" department: ${departmentFilters}">
+                    <td th:text="${department.id}"></td>
+                    <td th:text="${department.code}"></td>
+                    <td th:text="${department.name}"></td>
+                    <td th:text="${department.active} ? 'Hoạt động' : 'Tạm dừng'"></td>
+                    <td>
+                        <a class="btn btn-primary eBtn"  th:href="@{/admin/department/find/(id=${department.id})}"
+                           data-toggle="modal" data-target="#departmentModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>
+                        <a class="btn btn-danger dBtn" th:href="@{/admin/department/delete/(id=${department.id})}"
+                           data-toggle="modal" data-target="#deleteModal"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!--        Pagination-->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" th:href="@{/admin/department/(page=${currentPage} gt 0 ? ${currentPage} - 1 : 0)}">
+                        <i class="fa fa-backward" aria-hidden="true"> </i></a></li>
+                    <li class="page-item" th:each="i : ${#numbers.sequence(0,totalPage)}"
+                        th:classappend="${currentPage == i}? 'active': ''" >
+                        <a th:text="${i+1}" class="page-link" th:href="@{/admin/department/(page=${i})}">
+                        </a></li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{/admin/department/(page=${currentPage} lt ${totalPage} ? ${currentPage} + 1 : ${totalPage})}">
+                        <i class="fa fa-forward" aria-hidden="true"></i> </a></li>
+                </ul>
+            </nav>
+            <!--        Show Form Edit-->
+            <div class="department-form">
+                <form th:action="@{/admin/department/save}" method="post" id="myForm">
+                    <div class="modal fade" id="departmentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="departmentTitle">Phòng ban</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
-                                <div class="form-group">
-                                    <label for="name" class="col-form-label">Tên Phòng Ban:</label>
-                                    <input type="text" class="form-control" id="name" name="name" required>
+                                <div class="modal-body">
+                                    <input type="hidden" class="form-control" id="id" name="id">
+                                    <div class="form-group">
+                                        <label for="code" class="col-form-label">Mã Phòng Ban:</label>
+                                        <input type="text" class="form-control" id="code" name="code" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name" class="col-form-label">Tên Phòng Ban:</label>
+                                        <input type="text" class="form-control" id="name" name="name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="active" class="col-form-label">Trạng thái:</label>
+                                        <select class="form-control" id="active" name="active">
+                                            <option value="1">Hoạt động</option>
+                                            <option value="0">Tạm dừng</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="note" class="col-form-label">Ghi chú:</label>
+                                        <textarea class="form-control" id="note" name="note"></textarea>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="active" class="col-form-label">Trạng thái:</label>
-                                    <select class="form-control" id="active" name="active">
-                                        <option value="1">Hoạt động</option>
-                                        <option value="0">Tạm dừng</option>
-                                    </select>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <input type="submit" class="btn btn-primary" value="Save"></input>
                                 </div>
-                                <div class="form-group">
-                                    <label for="note" class="col-form-label">Ghi chú:</label>
-                                    <textarea class="form-control" id="note" name="note"></textarea>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <input type="submit" class="btn btn-primary" value="Save"></input>
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
-        </div>
-<!--        Confirm delete-->
-        <div class="modal" id="deleteModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <p class="alert alert-danger">Bạn có muốn xóa phòng ban này?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <a class="btn btn-danger" href="" id="delBtn"> Delete </a>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> Close </button>
+                </form>
+            </div>
+            <!--        Confirm delete-->
+            <div class="modal" id="deleteModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <p class="alert alert-danger">Bạn có muốn xóa phòng ban này?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-danger" href="" id="delBtn"> Delete </a>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"> Close </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
     <th:block layout:fragment="script">
         <script th:src="@{/js/department.js}"></script>
     </th:block>

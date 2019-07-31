@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class DepartmentServiceImpl implements DepartmentService {
@@ -21,12 +23,17 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    public List<Department> fillAll() {
+        return departmentRepository.findAll();
+    }
+
+    @Override
     public void save(Department department) {
         departmentRepository.save(department);
     }
 
     @Override
-    public Department findOne(int id) {
+    public Department findById(int id) {
         return departmentRepository.getOne(id);
     }
 

@@ -62,16 +62,25 @@ $(document).ready(function(){
         '</>';
     $('#departmentsTable thead').append(tableHead);
 
+    $('#departmentFilters thead').append(tableHead);
+
+    $('#departmentFilters').hide();
+
     $("#filter").on("keyup", function() {
         var inputValue = $(this).val().toLowerCase();
 
-        $("#departmentsTable tr").filter(function() {
+        $("#departmentFilters tr").filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(inputValue) > -1)
         });
         if(inputValue.length > 0){
+            $('#departmentsTable').hide();
+            $('#departmentFilters').show();
             $(".pagination").hide();
         }else{
+            $('#departmentsTable').show();
+            $('#departmentFilters').hide();
             $(".pagination").show();
         }
     });
+
 })

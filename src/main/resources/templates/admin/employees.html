@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+    <section layout:fragment="content">
+        <div class="table-header mb-2">
+            <h2>Danh Sách Nhân Viên</h2>
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-success aBtn" data-toggle="modal" data-target="#employeeModal"> Thêm </button>
+                <form class="form-inline">
+                    <input id="filter" class="form-control mr-sm-2" type="search" placeholder="&#xF002; Search"
+                           style="font-family:Arial, FontAwesome" aria-label="Search">
+                </form>
+            </div>
+        </div>
+
+        <table id="employeesTable" class="table table-hover table-bordered">
+            <thead>
+            </thead>
+            <tbody>
+            <tr th:each=" department: ${departments}">
+                <td th:text="${department.id}"></td>
+                <td th:text="${department.code}"></td>
+                <td th:text="${department.name}"></td>
+                <td th:text="${department.active} ? 'Hoạt động' : 'Tạm dừng'"></td>
+                <td>
+                    <a class="btn btn-primary eBtn"  th:href="@{/admin/department/find/(id=${department.id})}"
+                       data-toggle="modal" data-target="#departmentModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>
+                    <a class="btn btn-danger dBtn" th:href="@{/admin/department/delete/(id=${department.id})}"
+                       data-toggle="modal" data-target="#deleteModal"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>
