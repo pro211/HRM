@@ -32,9 +32,9 @@ public class LeaveController {
     @GetMapping("/employee/leave")
     public String home(Authentication authentication, Model model) {
         Employee employee = (Employee) authentication.getPrincipal();
-        List<Leave> leave = leaveService.findByEmployeeId(employee.getId());
+//        List<Leave> leave = leaveService.findByEmployeeId(employee.getId());
         model.addAttribute("leaveActive", true);
-        model.addAttribute("leave", leave);
+//        model.addAttribute("leave", leave);
         return "us_leave";
     }
 

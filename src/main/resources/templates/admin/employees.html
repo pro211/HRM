@@ -4,7 +4,7 @@
       layout:decorate="~{layouts/admin_layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Employees</title>
 
 </head>
 <body>
@@ -33,7 +33,7 @@
                 <td th:text="${employee.active ? 'Đang làm' : 'Đã nghỉ việc'}"></td>
                 <td>
                     <a class="btn btn-primary eBtn"  th:href="@{/admin/employee/find/(id=${employee.id})}"
-                       data-toggle="modal" data-target="#departmentModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>
+                       data-toggle="modal" data-target="#employeeModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>
                     <a class="btn btn-danger dBtn" th:href="@{/admin/employee/delete/(id=${employee.id})}"
                        data-toggle="modal" data-target="#deleteModal"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
                 </td>
@@ -41,7 +41,7 @@
             </tbody>
         </table>
 
-<!--        Pagination-->
+        <!--        Pagination-->
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <li class="page-item" th:classappend="${currentPage} == 0 ? 'disabled' : ''">
@@ -61,10 +61,10 @@
         <div class="employee-form">
             <form th:action="@{/admin/employee/save}" method="post" id="myForm">
                 <div class="modal fade" id="employeeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-dialog modal-xl" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="employeeTitle">Nhân sự</h5>
+                                <h5 class="modal-title" id="employeeTitle">Thông tin nhân viên</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -99,6 +99,21 @@
                     </div>
                 </div>
             </form>
+        </div>
+
+        <!--        Confirm delete-->
+        <div class="modal" id="deleteModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p class="alert alert-danger">Bạn có muốn xóa nhân viên này?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-danger" href="" id="delBtn"> Delete </a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> Close </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     <th:block layout:fragment="script">

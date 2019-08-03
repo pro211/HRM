@@ -43,7 +43,7 @@ public class ChangePasswordController {
             return "us_changepassword";
         }
 
-        Employee employee = employeeService.finById(changePassword.getId());
+        Employee employee = employeeService.findById(changePassword.getId());
         String checkPass = employee.getPassword();
         if(checkPass.equals(changePassword.getPassword())){
             if(changePassword.getNewPassword().equals(changePassword.getVerifyPassword())){

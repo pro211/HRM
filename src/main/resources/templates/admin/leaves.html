@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Leaves</title>
+
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="table-header mb-2">
+        <h2>Danh Sách Xin Nghỉ</h2>
+        <div class="d-flex justify-content-between">
+            <button class="btn btn-success aBtn" data-toggle="modal" data-target="#leavesModal"> Thêm </button>
+            <form class="form-inline">
+                <input id="filter" class="form-control mr-sm-2" type="search" placeholder="&#xF002; Search"
+                       style="font-family:Arial, FontAwesome" aria-label="Search">
+            </form>
+        </div>
+    </div>
+
+    <table id="leavesTable" class="table table-hover table-bordered">
+        <thead>
+        </thead>
+        <tbody>
+        <tr th:each=" leave: ${leaves}">
+            <td th:text="${leave.id}"></td>
+            <td th:text="${leave.employee.employeeName}"></td>
+            <td th:text="${leave.applyDate}"></td>
+            <td>
+                <a class="btn btn-primary eBtn"  th:href="@{/admin/leave/find/(id=${leave.id})}"
+                   data-toggle="modal" data-target="#employeeModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>
+                <a class="btn btn-danger dBtn" th:href="@{/admin/leave/delete/(id=${leave.id})}"
+                   data-toggle="modal" data-target="#deleteModal"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+<th:block layout:fragment="script">
+    <script th:src="@{/js/leave.js}"></script>
+</th:block>
+</body>
+</html>

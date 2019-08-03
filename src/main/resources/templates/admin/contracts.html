@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Contracts</title>
+
+</head>
+<body>
+    <section layout:fragment="content">
+        <div class="table-header mb-2">
+            <h2>Hợp đồng nhân viên</h2>
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-success aBtn" data-toggle="modal" data-target="#contractsModal"> Thêm </button>
+                <form class="form-inline">
+                    <input id="filter" class="form-control mr-sm-2" type="search" placeholder="&#xF002; Search"
+                           style="font-family:Arial, FontAwesome" aria-label="Search">
+                </form>
+            </div>
+        </div>
+
+        <table id="contractsTable" class="table table-hover table-bordered">
+            <thead>
+            </thead>
+            <tbody>
+            <tr th:each=" contract: ${contracts}">
+                <td th:text="${contract.id}"></td>
+                <td th:text="${contract.code}"></td>
+                <td>
+                    <a class="btn btn-primary eBtn"  th:href="@{/admin/contract/find/(id=${contract.id})}"
+                       data-toggle="modal" data-target="#employeeModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>
+                    <a class="btn btn-danger dBtn" th:href="@{/admin/contract/delete/(id=${contract.id})}"
+                       data-toggle="modal" data-target="#deleteModal"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    <th:block layout:fragment="script">
+        <script th:src="@{/js/contract.js}"></script>
+    </th:block>
+</body>
+</html>

@@ -3,7 +3,6 @@ package com.nc.hrm.model.service.impl;
 import com.nc.hrm.model.entity.Department;
 import com.nc.hrm.model.repository.DepartmentRepository;
 import com.nc.hrm.model.service.DepartmentService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,10 +11,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class DepartmentServiceImpl implements DepartmentService {
 
-    private final DepartmentRepository departmentRepository;
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
     @Override
     public Page<Department> findAll(Pageable page) {
@@ -28,8 +27,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public void save(Department department) {
-        departmentRepository.save(department);
+    public Department save(Department department) {
+        return departmentRepository.save(department);
     }
 
     @Override

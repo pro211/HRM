@@ -3,41 +3,40 @@ package com.nc.hrm.model.service.impl;
 import com.nc.hrm.model.entity.Contract;
 import com.nc.hrm.model.repository.ContractRepository;
 import com.nc.hrm.model.service.ContractService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class ContractServiceImpl implements ContractService {
 
-    private final ContractRepository contractRepository;
+    @Autowired
+    private ContractRepository contractRepository;
 
     @Override
-    public Iterable<Contract> findAll() {
+    public Page<Contract> findAll(Pageable page) {
+        return contractRepository.findAll(page);
+    }
+
+    @Override
+    public List<Contract> fillAll() {
         return contractRepository.findAll();
     }
 
     @Override
-    public void save(Contract contract) {
-
+    public Contract save(Contract contract) {
+        return contractRepository.save(contract);
     }
 
     @Override
-    public Optional<Contract> finById(int id) {
-        return Optional.empty();
+    public Contract findById(int id) {
+        return contractRepository.getOne(id);
     }
 
     @Override
     public void delete(int id) {
-
-    }
-
-    @Override
-    public List<Contract> findByEmployeeId(int employeeId) {
-        return null;
+        contractRepository.deleteById(id);
     }
 }

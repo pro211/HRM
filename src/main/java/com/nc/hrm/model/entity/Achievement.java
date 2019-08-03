@@ -1,6 +1,7 @@
 package com.nc.hrm.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,8 @@ public class Achievement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "apply_date")
     private LocalDate applyDate;
 

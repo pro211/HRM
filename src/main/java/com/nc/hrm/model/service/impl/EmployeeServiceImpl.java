@@ -1,6 +1,5 @@
 package com.nc.hrm.model.service.impl;
 
-import com.nc.hrm.model.entity.Department;
 import com.nc.hrm.model.entity.Employee;
 import com.nc.hrm.model.repository.EmployeeRepository;
 import com.nc.hrm.model.service.EmployeeService;
@@ -10,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -29,13 +27,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee finById(int id) {
+    public Employee findById(int id) {
         return employeeRepository.getOne(id);
     }
 
     @Override
-    public void save(Employee employee) {
-        employeeRepository.save(employee);
+    public Employee save(Employee employee) {
+        return employeeRepository.save(employee);
     }
 
     @Override
