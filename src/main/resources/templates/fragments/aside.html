@@ -2,7 +2,7 @@
 <html xmlns:th="http://wwww.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
-        <title>Title</title>
+        <title>Aside</title>
     </head>
     <body>
         <aside th:fragment="admin" class="list-group">
@@ -24,8 +24,17 @@
                 <i class="fa fa-bars" aria-hidden="true"></i> THỐNG KÊ </a>
         </aside>
 
-        <div th:fragment="employee">
-
+        <div th:fragment="user" class="list-group">
+            <a th:href="@{/employee/home}" class="list-group-item list-group-item-action list-group-item-info">
+                <i class="fa fa-tachometer" aria-hidden="true"></i> TRANG CHỦ </a>
+            <a th:href="@{/employee/info}" class="list-group-item list-group-item-action list-group-item-info">
+                <i class="fa fa-info-circle" aria-hidden="true"></i> THÔNG TIN CÁ NHÂN </a>
+            <a th:href="@{/employee/achievement}" class="list-group-item list-group-item-action list-group-item-info">
+                <i class="fa fa-trophy" aria-hidden="true"></i> KHEN THƯỞNG & KỶ LUẬT </a>
+            <a th:href="@{/employee/leave}" class="list-group-item list-group-item-action list-group-item-info">
+                <i class="fa fa-envelope" aria-hidden="true"></i> XIN NGHỈ PHÉP </a>
+            <a th:href="@{/employee/password}" class="list-group-item list-group-item-action list-group-item-info">
+                <i class="fa fa-key" aria-hidden="true"></i> ĐỔI MẬT KHẨU </a>
         </div>
     </body>
 </html>

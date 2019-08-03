@@ -17,7 +17,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
-public class HomeController {
+public class InfomationController {
 
     private final EmployeeService employeeService;
 

@@ -36,8 +36,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").anonymous()
                 .antMatchers("/logout", "/", "/employee/**").authenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/resources/**").permitAll()
                 .and()
             .formLogin()
+                .loginPage("/login")
+                .permitAll()
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/", false)
@@ -50,12 +53,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .key("uniqueAndSecret")
                 .and()
             .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
+                .permitAll()
                 .and()
             .csrf()
                 .disable();
     }
-
 }
 

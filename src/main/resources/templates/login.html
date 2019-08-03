@@ -1,0 +1,64 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Đăng nhập</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+    <div id="bg-login" class="container-fluid h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-sm-2 col-md-3"></div>
+                <div class="jumbotron col-sm-8 col-md-6">
+                    <form id="loginform" th:action="@{/login}" method="post">
+                        <h1 class="pb-3">Đăng nhập</h1>
+                        <div th:if="${param.error}" class="alert alert-danger">
+                            Tài Khoản hoặc Mật Khẩu không chính xác!
+                        </div>
+                        <div th:if="${param.logout}" class="alert alert-success">
+                            Bạn đã đăng xuất thành công!
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Tài Khoản</label>
+                            <input type="text" id="username" name="username" class="form-control form-control-lg" autofocus="autofocus"/>
+                         </div>
+                        <div class="form-group">
+                            <label for="password">Mật Khẩu</label>
+                            <input type="password" id="password" name="password" class="form-control form-control-lg"/>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                        </div>
+                    </form>
+                </div>
+            <div class="col-sm-2 col-md-3"></div>
+        </div>
+    </div>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var validator = $('#loginform').validate({
+                rules: {
+                    username: {
+                        required: true
+                    },
+                    password: {
+                        required: true
+                    }
+                },
+                messages: {
+                    username: {
+                        required: 'Tài khoản được để trống!'
+                    },
+                    password: {
+                        required: 'Mật khẩu không được để trống!'
+                    }
+                }
+            });
+        })
+    </script>
+</body>
+</html>

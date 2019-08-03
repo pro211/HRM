@@ -9,3 +9,17 @@ aside{
     color: red;
     font-style: italic;
 }
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    padding: 40px;
+    background-color: #FFFFFF;
+    transform: translate(-50%, -50%);
+}
+#bg-login{
+    background-image: url('https://app.chexology.com/assets/background_login-f94bf29cb8e076b24630a06a9e6a2a7fd3e1eb32b523c467daaec0399dab18b9.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
