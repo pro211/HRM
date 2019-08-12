@@ -1,6 +1,7 @@
 package com.nc.hrm.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nc.hrm.util.BaseEntity;
 import lombok.*;
@@ -99,9 +100,9 @@ public class Employee implements UserDetails {
     @Column(name = "admin")
     private boolean isAdmin;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
+    @JsonBackReference
     private Department department;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)

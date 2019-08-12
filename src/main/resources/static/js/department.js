@@ -4,6 +4,7 @@ $(document).ready(function(){
         $('#myForm .form-control').removeClass('error');
         var href = $(this).attr('href');
         $.get(href, function(department,status){
+            console.log(department)
             $('.department-form #id').val(department.id)
             $('.department-form #code').val(department.code)
             $('.department-form #name').val(department.name)
@@ -51,7 +52,7 @@ $(document).ready(function(){
                 required: 'Tên phòng ban không được để trống!',
                 lettersonly: 'Tên không hợp lệ!'
             }
-        }
+        },
     });
     var tableHead = '<>' +
         '<th> # </th>' +
