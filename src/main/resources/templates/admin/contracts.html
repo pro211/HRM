@@ -12,7 +12,7 @@
         <div class="table-header mb-2">
             <h2>Hợp đồng nhân viên</h2>
             <div class="d-flex justify-content-between">
-                <button class="btn btn-success aBtn" data-toggle="modal" data-target="#contractsModal"> Thêm </button>
+                <button class="btn btn-success aBtn" data-toggle="modal" data-target="#contractModal"> Thêm </button>
                 <form class="form-inline">
                     <input id="filter" class="form-control mr-sm-2" type="search" placeholder="&#xF002; Search"
                            style="font-family:Arial, FontAwesome" aria-label="Search">
@@ -20,22 +20,183 @@
             </div>
         </div>
 
-        <table id="contractsTable" class="table table-hover table-bordered">
+        <table id="contractFilters" class="table table-hover table-bordered">
             <thead>
             </thead>
             <tbody>
             <tr th:each=" contract: ${contracts}">
                 <td th:text="${contract.id}"></td>
                 <td th:text="${contract.code}"></td>
+                <td th:text="${contract.type.getName()}"></td>
+                <td th:text="${contract.employee.getBusinessName()}"></td>
+                <td th:text="${contract.employee.getEmployeeName()}"></td>
+                <td th:text="${contract.position.getName()}"></td>
+                <td th:text="${contract.startDate}"></td>
+                <td th:text="${contract.endDate}"></td>
                 <td>
                     <a class="btn btn-primary eBtn"  th:href="@{/admin/contract/find/(id=${contract.id})}"
-                       data-toggle="modal" data-target="#employeeModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>
+                       data-toggle="modal" data-target="#contractModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>
                     <a class="btn btn-danger dBtn" th:href="@{/admin/contract/delete/(id=${contract.id})}"
                        data-toggle="modal" data-target="#deleteModal"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
                 </td>
             </tr>
             </tbody>
         </table>
+
+        <!--        Filter-->
+        <table id="contractsTable" class="table table-hover table-bordered">
+            <thead>
+            </thead>
+            <tbody>
+            <tr th:each=" contract: ${contractFilters}">
+                <td th:text="${contract.id}"></td>
+                <td th:text="${contract.code}"></td>
+                <td th:text="${contract.type.getName()}"></td>
+                <td th:text="${contract.employee.getBusinessName()}"></td>
+                <td th:text="${contract.employee.getEmployeeName()}"></td>
+                <td th:text="${contract.position.getName()}"></td>
+                <td th:text="${contract.startDate}"></td>
+                <td th:text="${contract.endDate}"></td>
+                <td>
+                    <a class="btn btn-primary eBtn"  th:href="@{/admin/contract/find/(id=${contract.id})}"
+                       data-toggle="modal" data-target="#contractModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>
+                    <a class="btn btn-danger dBtn" th:href="@{/admin/contract/delete/(id=${contract.id})}"
+                       data-toggle="modal" data-target="#deleteModal"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!--        Pagination-->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item" th:classappend="${currentPage} == 0 ? 'disabled' : ''">
+                    <a class="page-link" th:href="@{/admin/contract/(page=${currentPage - 1})}">
+                        <i class="fa fa-backward" aria-hidden="true"> </i></a></li>
+                <li class="page-item" th:each="i : ${#numbers.sequence(0,totalPage)}"
+                    th:classappend="${currentPage == i}? 'active': ''" >
+                    <a th:text="${i+1}" class="page-link" th:href="@{/admin/contract/(page=${i})}">
+                    </a></li>
+                <li class="page-item" th:classappend="${currentPage} == ${totalPage} ? 'disabled' : ''">
+                    <a class="page-link" th:href="@{/admin/contract/(page=${currentPage + 1})}">
+                        <i class="fa fa-forward" aria-hidden="true"></i> </a></li>
+            </ul>
+        </nav>
+
+        <!--        Show Form Edit-->
+        <div class="contract-form">
+            <form th:action="@{/admin/contract/save}" method="post" id="myForm">
+                <div class="modal fade" id="contractModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="contractTitle">Thông Tin Hợp đồng</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" class="form-control" id="id" name="id">
+                                <input type="hidden" class="form-control" id="employee" name="employee">
+                                <div class="form-group">
+                                    <label for="nameEmp" class="col-form-label">Họ Và Tên: </label>
+                                    <input type="text" class="form-control" id="nameEmp" readonly="readonly" name="nameEmp">
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="codeEmp" class="col-form-label">Mã Nhân Viên: </label>
+                                            <input type="text" class="form-control" id="codeEmp" readonly="readonly" name="codeEmp" required>
+                                            <label class="error" id="exitscodeEmp"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="position" class="col-form-label">Chức Vụ: </label>
+                                            <select class="form-control" name="position" id="position">
+                                                <option value="">Lựa chọn</option>
+                                                <option th:each="position : ${positions}"
+                                                        th:value="${position.id}"
+                                                        th:utext="${position.name}"/>
+                                            </select>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="code" class="col-form-label">Mã Hợp Đồng: </label>
+                                            <input type="text" class="form-control" id="code" name="code" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="type" class="col-form-label">Loại Hợp Đồng: </label>
+                                            <select class="form-control" name="type" id="type">
+                                                <option value="">Lựa chọn</option>
+                                                <option th:each="type : ${contractTypes}"
+                                                        th:value="${type.id}"
+                                                        th:utext="${type.name}"/>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="baseSalary" class="col-form-label">Lương Cơ Bản: </label>
+                                            <input type="text" class="form-control" id="baseSalary" name="baseSalary" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="bonusSalary" class="col-form-label">Lương Phụ Cấp: </label>
+                                            <input type="text" class="form-control" id="bonusSalary" name="bonusSalary" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="startDate" class="col-form-label">Ngày Bắt Đầu: </label>
+                                            <input type="text" class="form-control" id="startDate" name="startDate" readonly="readonly" placeholder="dd/MM/yyyy">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="endDate" class="col-form-label">Ngày Kết Thúc: </label>
+                                            <input type="text" class="form-control" id="endDate" name="endDate" readonly="readonly" placeholder="dd/MM/yyyy">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary sBtn" value="Save"></input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--        Confirm delete-->
+        <div class="modal" id="deleteModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p class="alert alert-danger">Bạn có muốn xóa hợp đồng này?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-danger" href="" id="delBtn"> Delete </a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> Close </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
     <th:block layout:fragment="script">
         <script th:src="@{/js/contract.js}"></script>

@@ -18,8 +18,9 @@ aside{
     transform: translate(-50%, -50%);
 }
 #bg-login{
-    background-image: url('https://app.chexology.com/assets/background_login-f94bf29cb8e076b24630a06a9e6a2a7fd3e1eb32b523c467daaec0399dab18b9.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    /*background-image: url('/static/images/bg_login.png');*/
+    /*background-repeat: no-repeat;*/
+    /*background-position: center;*/
+    /*background-size: cover;*/
+    background: #70B4C7;
 }

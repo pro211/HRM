@@ -14,15 +14,15 @@ $(document).ready(function(){
         validator.resetForm();
         $('#myForm .form-control').removeClass('error');
         var href = $(this).attr('href');
-        $.get(href, function(employee,status){
-            console.log(employee)
-            $('.employee-form #id').val(employee.id)
-            $('.employee-form #avatar').val(employee.avatar)
-            $('.employee-form #isAdmin').val(employee.admin ? 1 : 0)
-            $('.employee-form #password').val(employee.password)
-            $('.employee-form #businessName').val(employee.businessName)
-            $('.employee-form #employeeName').val(employee.employeeName)
-            $('.employee-form #active').val(employee.active ? 1 : 0)
+        $.get(href, function(map,status){
+            console.log(map)
+            $('.employee-form #id').val(map.employee.id)
+            $('.employee-form #avatar').val(map.employee.avatar)
+            $('.employee-form #isAdmin').val(map.employee.admin ? 1 : 0)
+            $('.employee-form #password').val(map.employee.password)
+            $('.employee-form #businessName').val(map.employee.businessName)
+            $('.employee-form #employeeName').val(map.employee.employeeName)
+            $('.employee-form #active').val(map.employee.active ? 1 : 0)
         })
     });
 
@@ -39,7 +39,6 @@ $(document).ready(function(){
 
     $('.table .dBtn').on('click',function(event){
         var href = $(this).attr('href');
-        console.log(href);
         $('#deleteModal #delBtn').attr('href',href);
     });
 
@@ -74,6 +73,25 @@ $(document).ready(function(){
             department: {
                 required: 'Bạn chưa lựa chọn phòng ban!'
             }
+        }
+    });
+
+    $('#employeeFilters').hide();
+    $('#employeeFilters thead').append(tableHead);
+    $("#filter").on("keyup", function() {
+        var inputValue = $(this).val().toLowerCase();
+
+        $("#employeeFilters tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(inputValue) > -1)
+        });
+        if(inputValue.length > 0){
+            $('#employeesTable').hide();
+            $('#employeeFilters').show();
+            $(".pagination").hide();
+        }else{
+            $('#employeesTable').show();
+            $('#employeeFilters').hide();
+            $(".pagination").show();
         }
     });
 })

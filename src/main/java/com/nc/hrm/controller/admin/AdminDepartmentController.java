@@ -16,7 +16,7 @@ public class AdminDepartmentController {
     @GetMapping("/admin/department")
     public String getDepartments(Model model, @RequestParam(defaultValue="0") int page){
         model.addAttribute("departments", departmentService.findAll(PageRequest.of(page, 5)));
-        model.addAttribute("departmentFilters", departmentService.fillAll());
+        model.addAttribute("departmentFilters", departmentService.findAll());
         model.addAttribute("currentPage", page);
         int totalPage = departmentService.findAll(PageRequest.of(page, 5)).getTotalPages() -1;
         model.addAttribute("totalPage", totalPage);

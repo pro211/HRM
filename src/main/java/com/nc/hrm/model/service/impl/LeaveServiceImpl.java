@@ -21,7 +21,7 @@ public class LeaveServiceImpl implements LeaveService {
     }
 
     @Override
-    public List<Leave> fillAll() {
+    public List<Leave> findAll() {
         return null;
     }
 

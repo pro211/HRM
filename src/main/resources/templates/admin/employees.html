@@ -41,6 +41,28 @@
             </tbody>
         </table>
 
+        <!--        For Filter-->
+        <table id="employeeFilters" class="table table-hover table-bordered">
+            <thead>
+            </thead>
+            <tbody>
+            <tr th:each=" employee: ${employeefilters}">
+                <td th:text="${employee.id}"></td>
+                <td> <img th:src="@{'/images/'+${employee.avatar}}" style="max-width: 100%; height: 80px"/> </td>
+                <td th:text="${employee.businessName}"></td>
+                <td th:text="${employee.employeeName}"></td>
+                <td th:text="${employee.department.getName()}"></td>
+                <td th:text="${employee.active ? 'Đang làm' : 'Đã nghỉ việc'}"></td>
+                <td>
+                    <a class="btn btn-primary eBtn"  th:href="@{/admin/employee/find/(id=${employee.id})}"
+                       data-toggle="modal" data-target="#employeeModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>
+                    <a class="btn btn-danger dBtn" th:href="@{/admin/employee/delete/(id=${employee.id})}"
+                       data-toggle="modal" data-target="#deleteModal"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
         <!--        Pagination-->
         <nav aria-label="Page navigation example">
             <ul class="pagination">
@@ -84,7 +106,7 @@
                                 <div class="form-group">
                                     <label for="department" class="col-form-label">Phòng ban:</label>
                                     <select class="form-control" name="department" id="department">
-                                        <option value=""> Lựa chọn </option>
+                                        <option value="">Lựa chọn</option>
                                         <option th:each="department : ${departments}"
                                                 th:value="${department.id}"
                                                 th:utext="${department.name}"/>

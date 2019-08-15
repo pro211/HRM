@@ -22,7 +22,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public List<Department> fillAll() {
+    public List<Department> findAll() {
         return departmentRepository.findAll();
     }
 

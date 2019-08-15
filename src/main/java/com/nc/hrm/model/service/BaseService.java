@@ -9,7 +9,7 @@ import java.util.List;
 public interface BaseService<T, ID extends Serializable> {
     Page<T> findAll(Pageable page);
 
-    List<T> fillAll();
+    List<T> findAll();
 
     T save(T t);
 

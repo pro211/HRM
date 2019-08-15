@@ -21,7 +21,7 @@ public class AchievementServiceImpl implements AchievementService {
     }
 
     @Override
-    public List<Achievement> fillAll() {
+    public List<Achievement> findAll() {
         return achievementRepository.findAll();
     }
 

@@ -22,7 +22,7 @@ public class JobtitleServiceImpl implements JobtitleService {
     }
 
     @Override
-    public List<JobTitle> fillAll() {
+    public List<JobTitle> findAll() {
         return jobtitleRepository.findAll();
     }
 

@@ -1,11 +1,13 @@
 package com.nc.hrm.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -26,12 +28,13 @@ public class Contract {
     @Column(name = "code")
     private String code;
 
-    @Column(name = "type")
-    private Integer type;
-
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern="dd-MM-yyyy")
     @Column(name = "start_date")
     private LocalDate startDate;
 
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern="dd-MM-yyyy")
     @Column(name = "end_date")
     private LocalDate endDate;
 
@@ -43,6 +46,11 @@ public class Contract {
 
     @Column(name = "note")
     private String note;
+
+    @JsonIgnore
+    @ManyToOne( fetch = FetchType.LAZY)
+    @JoinColumn(name = "type")
+    private ContractType type;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
