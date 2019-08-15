@@ -40,11 +40,13 @@ public class Leave  {
     @Column(name = "reason")
     private String reason;
 
-    @Column(name = "status")
-    private Integer status;
-
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "status_id")
+    private LeaveStatus status;
 }

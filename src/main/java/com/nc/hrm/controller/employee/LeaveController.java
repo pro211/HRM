@@ -49,7 +49,6 @@ public class LeaveController {
     @PostMapping("/employee/leave/save")
     public String saveProfile(@Valid Leave leave, Authentication authentication,BindingResult result, RedirectAttributes redirect) {
         leave.setApplyDate(LocalDate.now());
-        leave.setStatus(2);
         Employee employee = (Employee) authentication.getPrincipal();
         leave.setEmployee(employee);
         if (result.hasErrors()) {

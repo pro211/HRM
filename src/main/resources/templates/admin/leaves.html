@@ -26,8 +26,13 @@
         <tbody>
         <tr th:each=" leave: ${leaves}">
             <td th:text="${leave.id}"></td>
+            <td th:text="${leave.employee.businessName}"></td>
             <td th:text="${leave.employee.employeeName}"></td>
+            <td th:text="${leave.reason}"></td>
             <td th:text="${leave.applyDate}"></td>
+            <td th:text="${leave.fromDate}"></td>
+            <td th:text="${leave.toDate}"></td>
+            <td th:text="${leave.status.getName()}"></td>
             <td>
                 <a class="btn btn-primary eBtn"  th:href="@{/admin/leave/find/(id=${leave.id})}"
                    data-toggle="modal" data-target="#employeeModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>

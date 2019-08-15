@@ -27,6 +27,7 @@
         <tr th:each=" jobtitle: ${jobtitles}">
             <td th:text="${jobtitle.id}"></td>
             <td th:text="${jobtitle.code}"></td>
+            <td th:text="${jobtitle.name}"></td>
             <td th:text="${jobtitle.department.getName()}"></td>
             <td>
                 <a class="btn btn-primary eBtn"  th:href="@{/admin/jobtitle/find/(id=${jobtitle.id})}"
