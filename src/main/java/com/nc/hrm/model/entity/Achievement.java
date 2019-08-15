@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -25,8 +26,8 @@ public class Achievement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-//    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern="dd-MM-yyyy")
     @Column(name = "apply_date")
     private LocalDate applyDate;
 
