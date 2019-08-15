@@ -15,6 +15,9 @@ public class AdminLeaveController {
     @GetMapping("/admin/leave")
     public String getContracts(Model model, @RequestParam(defaultValue = "0") int page) {
         model.addAttribute("leaves", leaveService.findAll(PageRequest.of(page,5)));
+        model.addAttribute("currentPage", page);
+        int totalPage = leaveService.findAll(PageRequest.of(page, 5)).getTotalPages() -1;
+        model.addAttribute("totalPage", totalPage);
         return "admin/leaves";
     }
 }

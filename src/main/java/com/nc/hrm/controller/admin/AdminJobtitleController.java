@@ -15,6 +15,9 @@ public class AdminJobtitleController {
     @GetMapping("/admin/jobtitle")
     public String getContracts(Model model, @RequestParam(defaultValue = "0") int page) {
         model.addAttribute("jobtitles", jobtitleService.findAll(PageRequest.of(page,5)));
+        model.addAttribute("currentPage", page);
+        int totalPage = jobtitleService.findAll(PageRequest.of(page, 5)).getTotalPages() -1;
+        model.addAttribute("totalPage", totalPage);
         return "admin/jobtitles";
     }
 }

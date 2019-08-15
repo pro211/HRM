@@ -37,6 +37,82 @@
         </tr>
         </tbody>
     </table>
+
+    <!--        Pagination-->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${currentPage} == 0 ? 'disabled' : ''">
+                <a class="page-link" th:href="@{/admin/leave/(page=${currentPage - 1})}">
+                    <i class="fa fa-backward" aria-hidden="true"> </i></a></li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(0,totalPage)}"
+                th:classappend="${currentPage == i}? 'active': ''" >
+                <a th:text="${i+1}" class="page-link" th:href="@{/admin/leave/(page=${i})}">
+                </a></li>
+            <li class="page-item" th:classappend="${currentPage} == ${totalPage} ? 'disabled' : ''">
+                <a class="page-link" th:href="@{/admin/leave/(page=${currentPage + 1})}">
+                    <i class="fa fa-forward" aria-hidden="true"></i> </a></li>
+        </ul>
+    </nav>
+
+    <!--        Show Form Edit-->
+    <div class="leave">
+        <form th:action="@{/admin/leave/save}" method="post" id="myForm">
+            <div class="modal fade" id="leaveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="leaveTitle">Chức danh</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" class="form-control" id="id" name="id">
+                            <div class="form-group">
+                                <label for="code" class="col-form-label">Mã Chức Danh:</label>
+                                <input type="text" class="form-control" id="code" name="code" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-form-label">Tên Chức Danh:</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="department" class="col-form-label">Phòng ban:</label>
+                                <select class="form-control" name="department" id="department">
+                                    <option value="">Lựa chọn</option>
+                                    <option th:each="department : ${departments}"
+                                            th:value="${department.id}"
+                                            th:utext="${department.name}"/>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="note" class="col-form-label">Ghi chú:</label>
+                                <textarea class="form-control" id="note" name="note"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" value="Save"></input>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--        Confirm delete-->
+    <div class="modal" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="alert alert-danger">Bạn có muốn xóa đơn nghỉ phép này?</p>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-danger" href="" id="delBtn"> Delete </a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> Close </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 <th:block layout:fragment="script">
     <script th:src="@{/js/leave.js}"></script>
