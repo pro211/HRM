@@ -34,13 +34,13 @@ public class ChangePasswordController {
         changePassword.setId(employee.getId());
         model.addAttribute("changePassword", changePassword);
         model.addAttribute("passwordActive", true);
-        return "us_changepassword";
+        return "employee/changepassword";
     }
 
     @PostMapping("/employee/saveChangePassword")
     public String saveChangePassword(@Valid ChangePassword changePassword, BindingResult result, RedirectAttributes redirect) {
         if (result.hasErrors()) {
-            return "us_changepassword";
+            return "employee/changepassword";
         }
 
         Employee employee = employeeService.findById(changePassword.getId());

@@ -9,7 +9,42 @@
 <body>
 <section layout:fragment="content">
     <h2>Xin nghỉ phép</h2>
-    <p>Chức năng đang xây dựng</p>
+    <form action="#" th:action="@{/employee/leave/save}" th:object="${leave}" method="post"
+          novalidate="novalidate">
+        <input type="hidden" th:field="*{id}"/>
+        <input type="hidden" th:field="*{applyDate}"/>
+        <input type="hidden" th:field="*{employee}"/>
+        <input type="hidden" th:field="*{status}"/>
+        <div class="row">
+            <div class="col-md-12 pr-1">
+                <div class="form-group">
+                    <label>Lý do</label>
+                    <input class="form-control" type="text" th:field="*{reason}"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 pr-1">
+                <div class="form-group">
+                    <label>Bắt đầu từ ngày</label>
+                    <input class="form-control" type="date" th:field="*{fromDate}"/>
+                </div>
+            </div>
+            <div class="col-md-6 pr-1">
+                <div class="form-group">
+                    <label>Kết thúc vào ngày</label>
+                    <input class="form-control" type="date" th:field="*{toDate}"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="update ml-auto mr-auto">
+                <button type="submit" class="btn btn-primary btn-round">Gửi</button>
+            </div>
+        </div>
+    </form>
 </section>
 </body>
 </html>

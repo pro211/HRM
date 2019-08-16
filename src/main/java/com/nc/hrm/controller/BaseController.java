@@ -13,8 +13,9 @@ public class BaseController {
 
     @GetMapping("/")
     public String index(Authentication authentication) {
-        if (StringUtils.equals(authentication.getAuthorities().stream().findFirst().get().toString(), "ROLE_ADMIN"))
+        if (StringUtils.equals(authentication.getAuthorities().stream().findFirst().get().toString(), "ROLE_ADMIN")){
             return "redirect:/admin/home";
+        }
         return "redirect:/employee/home";
 
     }

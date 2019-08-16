@@ -27,7 +27,7 @@ public class AchievementController {
         List<Achievement> achievements = achievementService.findByEmployeeId(2);
         model.addAttribute("achievement", true);
         model.addAttribute("achievements", achievements);
-        return "us_achievement";
+        return "employee/achievement";
     }
 
 

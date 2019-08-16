@@ -35,7 +35,7 @@ public class LeaveController {
 //        List<Leave> leave = leaveService.findByEmployeeId(employee.getId());
         model.addAttribute("leaveActive", true);
 //        model.addAttribute("leave", leave);
-        return "us_leave";
+        return "employee/leave";
     }
 
     @GetMapping("/employee/newleave")
@@ -43,7 +43,7 @@ public class LeaveController {
         Leave leave = new Leave();
         model.addAttribute("leave", leave);
         model.addAttribute("leaveActive", true);
-        return "us_leave_form";
+        return "employee/leave_form";
     }
 
     @PostMapping("/employee/leave/save")
@@ -52,7 +52,7 @@ public class LeaveController {
         Employee employee = (Employee) authentication.getPrincipal();
         leave.setEmployee(employee);
         if (result.hasErrors()) {
-            return "us_leave_form";
+            return "employee/leave_form";
         }
         leaveService.save(leave);
         return "redirect:/employee/leave";

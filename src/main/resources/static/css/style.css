@@ -22,5 +22,9 @@ aside{
     /*background-repeat: no-repeat;*/
     /*background-position: center;*/
     /*background-size: cover;*/
-    background: #346075;
+    background: #E9ECEF;
+}
+.bg-form{
+    background: #FFFFFF;
+    padding: 40px;
 }

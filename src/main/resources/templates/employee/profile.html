@@ -7,9 +7,186 @@
     <title>Profile</title>
 </head>
 <body>
-<section layout:fragment="content">
-    <h2>Thông tin cá nhân</h2>
-    <p>Chức năng đang xây dựng</p>
-</section>
+    <section layout:fragment="content">
+        <div class="card card-user">
+            <div class="card-header">
+                <h5 class="card-title">Thông tin cá nhân</h5>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Họ và tên</label>
+                                        <input disabled="disabled" type="text" th:value="${profile.employeeName}"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Mã nhân viên</label>
+                                        <input disabled="disabled" type="text" th:value="${profile.businessName}"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Ngày sinh</label>
+                                        <input disabled="disabled" type="text" class="form-control"
+                                               th:value="${profile.dateOfBirth}">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <label>Giới tính</label>
+                                    <input disabled="disabled" type="text" class="form-control"
+                                           th:if="${profile.gender == true}"
+                                           value="Nam">
+                                    <input disabled="disabled" type="text" class="form-control"
+                                           th:if="${profile.gender == false}"
+                                           value="Nữ">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Căn cước công dân(CMTND)</label>
+                                        <input disabled="disabled" type="text" class="form-control"
+                                               th:value="${profile.identityNumber}">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Quốc tịch</label>
+                                        <input disabled="disabled" type="text" class="form-control"
+                                               th:value="${profile.nationality}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Trạng thái hôn nhân</label>
+                                        <input disabled="disabled" type="text" class="form-control"
+                                               th:value="${profile.maritalStatus}">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Ngày bắt đầu làm việc</label>
+                                        <input disabled="disabled" type="text" class="form-control"
+                                               th:value="${profile.joinedDate}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Địa chỉ 1</label>
+                                        <input disabled="disabled" type="text" class="form-control"
+                                               th:value="${profile.addressStreet1}">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Địa chỉ 2</label>
+                                        <input disabled="disabled" type="text" class="form-control"
+                                               th:value="${profile.addressStreet2}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="card card-user">
+                                <div class="image">
+                                    <img th:src="@{'/images/'+${profile.avatar}}" style="max-width: 100%">
+                                    <h5 class="title text-primary text-center mt-5" th:text="${profile.employeeName}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Thành phố</label>
+                                <input disabled="disabled" type="text" class="form-control"
+                                       th:value="${profile.city}">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Tỉnh(Bang)</label>
+                                <input disabled="disabled" type="text" class="form-control"
+                                       th:value="${profile.stateProvince}">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Quốc gia </label>
+                                <input disabled="disabled" type="text" class="form-control"
+                                       th:value="${profile.country}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Số điện thoại nhà</label>
+                                <input disabled="disabled" type="text" class="form-control"
+                                       th:value="${profile.homeTelephone}">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Số điện thoại cá nhân</label>
+                                <input disabled="disabled" type="text" class="form-control"
+                                       th:value="${profile.personalMobile}">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Số điện thoại làm việc</label>
+                                <input disabled="disabled" type="text" class="form-control"
+                                       th:value="${profile.workTelephone}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Email làm việc</label>
+                                <input disabled="disabled" type="text" class="form-control"
+                                       th:value="${profile.workEmail}">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Email cá nhân</label>
+                                <input disabled="disabled" type="text" class="form-control"
+                                       th:value="${profile.personalEmail}">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Mã bưu chính </label>
+                                <input disabled="disabled" type="number" class="form-control"
+                                       th:value="${profile.zipPostalCode}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="update ml-auto mr-auto">
+                            <a class="btn btn-primary btn-round" th:href="@{/employee/editprofile}">Thay đổi thông
+                                tin</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
