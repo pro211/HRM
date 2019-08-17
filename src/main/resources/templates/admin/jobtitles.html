@@ -19,7 +19,7 @@
             </form>
         </div>
     </div>
-
+    <div><span th:text="${error}"></span></div>
     <table id="jobtitlesTable" class="table table-hover table-bordered">
         <thead>
         </thead>
@@ -38,6 +38,26 @@
         </tr>
         </tbody>
     </table>
+    <!--filter-->
+    <table id="jobtitlefilters" class="table table-hover table-bordered">
+        <thead>
+        </thead>
+        <tbody>
+        <tr th:each=" jobtitle: ${jobtitlefilters}">
+            <td th:text="${jobtitle.id}"></td>
+            <td th:text="${jobtitle.code}"></td>
+            <td th:text="${jobtitle.name}"></td>
+            <td th:text="${jobtitle.department.getName()}"></td>
+            <td>
+                <a class="btn btn-primary eBtn"  th:href="@{/admin/jobtitle/find/(id=${jobtitle.id})}"
+                   data-toggle="modal" data-target="#jobtitleModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>
+                <a class="btn btn-danger dBtn" th:href="@{/admin/jobtitle/delete/(id=${jobtitle.id})}"
+                   data-toggle="modal" data-target="#deleteModal"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
 
     <!--        Pagination-->
     <nav aria-label="Page navigation example">

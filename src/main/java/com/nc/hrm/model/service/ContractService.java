@@ -5,5 +5,6 @@ import java.util.List;
 
 public interface ContractService extends BaseService<Contract, Integer> {
     List<Contract> findByEmployeeId(int employeeId);
+    List<Contract> findByPositionId(int positionId);
 }
 
