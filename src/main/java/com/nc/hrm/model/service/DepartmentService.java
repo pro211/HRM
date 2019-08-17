@@ -1,4 +1,8 @@
 package com.nc.hrm.model.service;
 import com.nc.hrm.model.entity.Department;
+import com.nc.hrm.model.entity.Employee;
 
-public interface DepartmentService extends BaseService<Department, Integer> { }
+import java.util.List;
+
+public interface DepartmentService extends BaseService<Department, Integer> {
+}

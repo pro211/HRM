@@ -1,6 +1,7 @@
 package com.nc.hrm.model.service.impl;
 
 import com.nc.hrm.model.entity.Department;
+import com.nc.hrm.model.entity.Employee;
 import com.nc.hrm.model.repository.DepartmentRepository;
 import com.nc.hrm.model.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,4 @@ public class DepartmentServiceImpl implements DepartmentService {
     public void delete(int id) {
         departmentRepository.deleteById(id);
     }
-
 }

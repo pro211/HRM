@@ -39,4 +39,9 @@ public class LeaveServiceImpl implements LeaveService {
     public void delete(int id) {
 
     }
+
+    @Override
+    public List<Leave> findByEmployeeId(int employeeId) {
+        return leaveRepository.findByEmployeeId(employeeId);
+    }
 }
