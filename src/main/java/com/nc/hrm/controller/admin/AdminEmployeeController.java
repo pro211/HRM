@@ -62,17 +62,31 @@ public class AdminEmployeeController {
     }
 
     @GetMapping("/admin/employee/delete")
-    public String deleteEmployee (Integer id) {
+    public String deleteEmployee (Integer id, Model model) {
         List<Achievement> listAchievement = achievementService.findByEmployeeId(id);
         List<Contract> listContract = contractService.findByEmployeeId(id);
         List<Leave> listLeave = leaveService.findByEmployeeId(id);
-        if(listAchievement.size() > 0 || listContract.size() > 0 || listLeave.size() > 0){
-            System.out.println("K the xoa nhan vien nay");
-            System.out.println("Achievement: " + listAchievement.size() + "Contract: "+ listContract.size() +"Leave: " + listLeave.size());
+        System.out.println("Achievement: " + listAchievement.size() + "Contract: "+ listContract.size() +"Leave: " + listLeave.size());
+        boolean check = false;
+        if(listAchievement.size() > 0){
+            model.addAttribute("message1","Nhân viên này có khen thưởng hoặc kỷ luật. Không thể xóa!");
+            check = false;
+        }else if(listContract.size() > 0) {
+            model.addAttribute("message2","Nhân viên này có hợp đồng. Không thể xóa!");
+            check = false;
+        }else if(listLeave.size() > 0) {
+            model.addAttribute("message3","Nhân viên này có đơn xin nghỉ phép. Không thể xóa!");
+            check = false;
         }else{
             employeeService.delete(id);
+            check = true;
         }
-        return "redirect:/admin/employee";
+
+        if(check = true){
+            return "redirect:/admin/employee";
+        }else {
+            return "admin/employees";
+        }
     }
 
     @GetMapping("/admin/employee/findEmp")

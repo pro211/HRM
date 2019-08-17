@@ -1,6 +1,7 @@
 package com.nc.hrm.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nc.hrm.util.BaseEntity;
 import lombok.AllArgsConstructor;
@@ -25,16 +26,19 @@ public class Leave  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @JsonFormat(pattern="dd-MM-yyyy")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(name = "apply_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate applyDate;
 
+    @JsonFormat(pattern="dd-MM-yyyy")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(name = "from_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fromDate;
 
+    @JsonFormat(pattern="dd-MM-yyyy")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(name = "to_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate toDate;
 
     @Column(name = "reason")

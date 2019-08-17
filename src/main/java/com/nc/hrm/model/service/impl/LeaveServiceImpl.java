@@ -22,22 +22,22 @@ public class LeaveServiceImpl implements LeaveService {
 
     @Override
     public List<Leave> findAll() {
-        return null;
+        return leaveRepository.findAll();
     }
 
     @Override
-    public Leave save(Leave contract) {
-        return null;
+    public Leave save(Leave leave) {
+        return leaveRepository.save(leave);
     }
 
     @Override
     public Leave findById(int id) {
-        return null;
+        return leaveRepository.getOne(id);
     }
 
     @Override
     public void delete(int id) {
-
+        leaveRepository.deleteById(id);
     }
 
     @Override

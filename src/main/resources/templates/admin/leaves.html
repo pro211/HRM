@@ -12,7 +12,7 @@
     <div class="table-header mb-2">
         <h2>Danh Sách Xin Nghỉ</h2>
         <div class="d-flex justify-content-between">
-            <button class="btn btn-success aBtn" data-toggle="modal" data-target="#leavesModal"> Thêm </button>
+            <button class="btn btn-success aBtn" data-toggle="modal" data-target="#leaveModal"> Thêm </button>
             <form class="form-inline">
                 <input id="filter" class="form-control mr-sm-2" type="search" placeholder="&#xF002; Search"
                        style="font-family:Arial, FontAwesome" aria-label="Search">
@@ -35,7 +35,7 @@
             <td th:text="${leave.status.getName()}"></td>
             <td>
                 <a class="btn btn-primary eBtn"  th:href="@{/admin/leave/find/(id=${leave.id})}"
-                   data-toggle="modal" data-target="#employeeModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>
+                   data-toggle="modal" data-target="#leaveModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>
                 <a class="btn btn-danger dBtn" th:href="@{/admin/leave/delete/(id=${leave.id})}"
                    data-toggle="modal" data-target="#deleteModal"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
             </td>
@@ -59,45 +59,106 @@
         </ul>
     </nav>
 
+<!--    Filter-->
+    <table id="leaveFilters" class="table table-hover table-bordered">
+        <thead>
+        </thead>
+        <tbody>
+        <tr th:each=" leave: ${leaveFilters}">
+            <td th:text="${leave.id}"></td>
+            <td th:text="${leave.employee.businessName}"></td>
+            <td th:text="${leave.employee.employeeName}"></td>
+            <td th:text="${leave.reason}"></td>
+            <td th:text="${leave.applyDate}"></td>
+            <td th:text="${leave.fromDate}"></td>
+            <td th:text="${leave.toDate}"></td>
+            <td th:text="${leave.status.getName()}"></td>
+            <td>
+                <a class="btn btn-primary eBtn"  th:href="@{/admin/leave/find/(id=${leave.id})}"
+                   data-toggle="modal" data-target="#leaveModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>
+                <a class="btn btn-danger dBtn" th:href="@{/admin/leave/delete/(id=${leave.id})}"
+                   data-toggle="modal" data-target="#deleteModal"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
     <!--        Show Form Edit-->
-    <div class="leave">
+    <div class="leave-form">
         <form th:action="@{/admin/leave/save}" method="post" id="myForm">
             <div class="modal fade" id="leaveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="leaveTitle">Chức danh</h5>
+                            <h5 class="modal-title" id="leaveTitle">Nghỉ phép</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <input type="hidden" class="form-control" id="id" name="id">
-                            <div class="form-group">
-                                <label for="code" class="col-form-label">Mã Chức Danh:</label>
-                                <input type="text" class="form-control" id="code" name="code" required>
+                            <input type="hidden" class="form-control" id="employee" name="employee">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="codeEmp" class="col-form-label">Mã nhân viên: </label>
+                                        <input type="text" class="form-control" id="codeEmp" name="codeEmp" required>
+                                        <label class="error" id="exitscodeEmp"></label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="nameEmp" class="col-form-label">Họ và tên: </label>
+                                        <input type="text" class="form-control" id="nameEmp" name="nameEmp" readonly="readonly">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="name" class="col-form-label">Tên Chức Danh:</label>
-                                <input type="text" class="form-control" id="name" name="name" required>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="status" class="col-form-label">Trạng thái: </label>
+                                    <select class="form-control" name="status" id="status">
+                                        <option value="">Lựa chọn</option>
+                                        <option th:each="status : ${status}"
+                                                th:value="${status.id}"
+                                                th:utext="${status.name}"/>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="applyDate" class="col-form-label">Ngày xin nghỉ: </label>
+                                        <input type="text" class="form-control" id="applyDate" name="applyDate"  placeholder="dd/MM/yyyy" readonly = "readonly">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="department" class="col-form-label">Phòng ban:</label>
-                                <select class="form-control" name="department" id="department">
-                                    <option value="">Lựa chọn</option>
-                                    <option th:each="department : ${departments}"
-                                            th:value="${department.id}"
-                                            th:utext="${department.name}"/>
-                                </select>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="fromDate" class="col-form-label">Ngày Bắt Đầu: </label>
+                                        <input type="text" class="form-control" id="fromDate" name="fromDate" placeholder="dd/MM/yyyy" readonly = "readonly">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="toDate" class="col-form-label">Ngày Kết Thúc: </label>
+                                        <input type="text" class="form-control" id="toDate" name="toDate"  placeholder="dd/MM/yyyy" readonly = "readonly">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="note" class="col-form-label">Ghi chú:</label>
-                                <textarea class="form-control" id="note" name="note"></textarea>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="reason" class="col-form-label">Lý do:</label>
+                                        <textarea class="form-control" id="reason" name="reason"></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <input type="submit" class="btn btn-primary" value="Save"></input>
+                            <input type="submit" class="btn btn-primary sBtn" value="Save"></input>
                         </div>
                     </div>
                 </div>
