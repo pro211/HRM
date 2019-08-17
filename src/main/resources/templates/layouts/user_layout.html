@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://wwww.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <!-- script -->
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <title>Bee</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <header th:replace="fragments/header :: user" />
+
+        <main class="row my-3">
+            <div class="col-sm-3">
+                <!-- aside-->
+                <aside th:replace="fragments/aside :: user" />
+            </div>
+            <div class="col-sm-9">
+                <!-- content -->
+                <section layout:fragment="content"/>
+            </div>
+        </main>
+
+        <footer th:replace="fragments/footer :: footer"> </footer>
+
+        <th:block layout:fragment="script"></th:block>
+    </div>
+    <!-- script -->
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+</body>
+</html>

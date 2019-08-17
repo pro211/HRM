@@ -33,7 +33,7 @@ CREATE TABLE `achievement` (
   PRIMARY KEY (`id`),
   KEY `fk_employee_idx` (`employee_id`),
   CONSTRAINT `fk_employeea` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,6 +42,7 @@ CREATE TABLE `achievement` (
 
 LOCK TABLES `achievement` WRITE;
 /*!40000 ALTER TABLE `achievement` DISABLE KEYS */;
+INSERT INTO `achievement` VALUES (1,'2017-07-23 06:10:11','Thành tích tốt',1,NULL,NULL,2);
 /*!40000 ALTER TABLE `achievement` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,9 +68,11 @@ CREATE TABLE `contract` (
   UNIQUE KEY `code_UNIQUE` (`code`),
   KEY `fk_job_idx` (`position`),
   KEY `fk_emploee_idx` (`employee_id`),
+  KEY `fk_type_idx` (`type`),
   CONSTRAINT `fk_emploee` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`),
-  CONSTRAINT `fk_job` FOREIGN KEY (`position`) REFERENCES `jobtitle` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `fk_job` FOREIGN KEY (`position`) REFERENCES `jobtitle` (`id`),
+  CONSTRAINT `fk_type` FOREIGN KEY (`type`) REFERENCES `contract_type` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -78,7 +81,33 @@ CREATE TABLE `contract` (
 
 LOCK TABLES `contract` WRITE;
 /*!40000 ALTER TABLE `contract` DISABLE KEYS */;
+INSERT INTO `contract` VALUES (1,'HD01',1,1,'2019-01-01','2019-01-01',8000000.00,1000000.00,NULL,2),(2,'HD02',2,2,'2017-01-01','2018-01-01',20000000.00,5000000.00,NULL,3);
 /*!40000 ALTER TABLE `contract` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `contract_type`
+--
+
+DROP TABLE IF EXISTS `contract_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `contract_type` (
+  `id` int(2) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `contract_type`
+--
+
+LOCK TABLES `contract_type` WRITE;
+/*!40000 ALTER TABLE `contract_type` DISABLE KEYS */;
+INSERT INTO `contract_type` VALUES (3,'Dịch vụ'),(6,'Học việc'),(2,'Không thời hạn'),(4,'Partime'),(1,'Thời hạn'),(5,'Thử việc');
+/*!40000 ALTER TABLE `contract_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -96,7 +125,7 @@ CREATE TABLE `department` (
   `active` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `code_UNIQUE` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,7 +134,7 @@ CREATE TABLE `department` (
 
 LOCK TABLES `department` WRITE;
 /*!40000 ALTER TABLE `department` DISABLE KEYS */;
-INSERT INTO `department` VALUES (1,'TC','Phòng Tài Chính','',0),(2,'KH','Phòng Kế Hoạch','',1),(3,'IT','Phòng Kỹ Thuật',NULL,0),(4,'TK','Phòng Thiết Kế ',NULL,1),(5,'HR','Phòng Nhân Sự',NULL,1),(6,'KS','Phòng Khảo Sát',NULL,1),(7,'KT','Phòng Kế Toán',NULL,1),(8,'TC22','Women','',0);
+INSERT INTO `department` VALUES (1,'TC','Phòng Tài Chính','',0),(2,'KH','Phòng Kế Hoạch','',0),(3,'IT','Phòng Kỹ Thuật',NULL,0),(4,'TK','Phòng Thiết Kế ',NULL,1),(5,'HR','Phòng Nhân Sự','',0),(6,'KS','Phòng Khảo Sát',NULL,1),(7,'KT','Phòng Kế Toán',NULL,1);
 /*!40000 ALTER TABLE `department` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,7 +176,7 @@ CREATE TABLE `employee` (
   UNIQUE KEY `code_UNIQUE` (`business_name`),
   KEY `fk_deparment_idx` (`department_id`),
   CONSTRAINT `fk_deparment` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -156,7 +185,7 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` VALUES (1,'linh','$2a$10$SeeV7hqcxuSn6zzPsF32pOa8NM.KCWAOeyCfGy94qBVlnWz2OS3S6',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,1,NULL),(2,'ha','$2a$10$SeeV7hqcxuSn6zzPsF32pOa8NM.KCWAOeyCfGy94qBVlnWz2OS3S6',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL);
+INSERT INTO `employee` VALUES (1,'admin','$2a$10$SeeV7hqcxuSn6zzPsF32pOa8NM.KCWAOeyCfGy94qBVlnWz2OS3S6','Sếp','employee1.png',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,1,6),(2,'hadv','$2a$10$SeeV7hqcxuSn6zzPsF32pOa8NM.KCWAOeyCfGy94qBVlnWz2OS3S6','Đỗ Hoàng Việt Hà','employee1.png',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,1,1),(3,'linhpv','$2a$10$SeeV7hqcxuSn6zzPsF32pOa8NM.KCWAOeyCfGy94qBVlnWz2OS3S6','Phạm Văn Linh','employee1.png',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,1,7),(4,'maudd','$2a$10$SeeV7hqcxuSn6zzPsF32pOa8NM.KCWAOeyCfGy94qBVlnWz2OS3S6','Đỗ Duy Mậu','employee1.png',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,2),(5,'duongdk','$2a$10$SeeV7hqcxuSn6zzPsF32pOa8NM.KCWAOeyCfGy94qBVlnWz2OS3S6','Đinh Khánh Dương','employee1.png',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,4);
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,7 +206,7 @@ CREATE TABLE `jobtitle` (
   UNIQUE KEY `code_UNIQUE` (`code`),
   KEY `fk_department_idx` (`department_id`),
   CONSTRAINT `fk_department` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -186,7 +215,33 @@ CREATE TABLE `jobtitle` (
 
 LOCK TABLES `jobtitle` WRITE;
 /*!40000 ALTER TABLE `jobtitle` DISABLE KEYS */;
+INSERT INTO `jobtitle` VALUES (1,'NV','Nhân Viên',NULL,1),(2,'GD','Giám Đốc',NULL,1),(3,'BV','Bảo Vệ',NULL,1);
 /*!40000 ALTER TABLE `jobtitle` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `leave_status`
+--
+
+DROP TABLE IF EXISTS `leave_status`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `leave_status` (
+  `id` int(2) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `leave_status`
+--
+
+LOCK TABLES `leave_status` WRITE;
+/*!40000 ALTER TABLE `leave_status` DISABLE KEYS */;
+INSERT INTO `leave_status` VALUES (4,'Chờ xác nhận'),(3,'Đã lên kế hoạch'),(5,'Đã nghỉ'),(2,'Hủy bỏ'),(1,'Từ chối');
+/*!40000 ALTER TABLE `leave_status` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -202,12 +257,14 @@ CREATE TABLE `leaves` (
   `from_date` date DEFAULT NULL,
   `to_date` date DEFAULT NULL,
   `reason` varchar(100) DEFAULT NULL,
-  `status` tinyint(3) DEFAULT NULL,
+  `status` int(2) DEFAULT NULL,
   `employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_employee_idx` (`employee_id`),
-  CONSTRAINT `fk_employee` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `fk_status_idx` (`status`),
+  CONSTRAINT `fk_employee` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`),
+  CONSTRAINT `fk_status` FOREIGN KEY (`status`) REFERENCES `leave_status` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -216,6 +273,7 @@ CREATE TABLE `leaves` (
 
 LOCK TABLES `leaves` WRITE;
 /*!40000 ALTER TABLE `leaves` DISABLE KEYS */;
+INSERT INTO `leaves` VALUES (1,'2017-07-23 06:10:11','2017-07-23','2017-08-23','đi chơi',1,2);
 /*!40000 ALTER TABLE `leaves` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -228,4 +286,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-27 18:10:41
+-- Dump completed on 2019-08-15 15:05:45

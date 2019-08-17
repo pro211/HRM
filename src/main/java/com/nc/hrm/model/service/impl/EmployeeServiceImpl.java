@@ -4,28 +4,36 @@ import com.nc.hrm.model.entity.Employee;
 import com.nc.hrm.model.repository.EmployeeRepository;
 import com.nc.hrm.model.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
+
     @Autowired
     private EmployeeRepository employeeRepository;
 
     @Override
-    public Iterable<Employee> findAll() {
+    public Page<Employee> findAll(Pageable page) {
+        return employeeRepository.findAll(page);
+    }
+
+    @Override
+    public List<Employee> findAll() {
         return employeeRepository.findAll();
     }
 
     @Override
-    public void save(Employee employee) {
-        employeeRepository.save(employee);
+    public Employee findById(int id) {
+        return employeeRepository.getOne(id);
     }
 
     @Override
-    public Optional<Employee> finById(int id) {
-        return employeeRepository.findById(id);
+    public Employee save(Employee employee) {
+        return employeeRepository.save(employee);
     }
 
     @Override
@@ -36,5 +44,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void delete(int id) {
         employeeRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Employee> findByDepartmentId(int departmentId) {
+        return employeeRepository.findByDepartmentId(departmentId);
     }
 }

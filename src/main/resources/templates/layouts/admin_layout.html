@@ -1,27 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://wwww.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!--    cdn-->
-    <!--    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}" />-->
-    <!--    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}" />-->
-
-    <!-- font-awesome -->
     <link rel="stylesheet" th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}">
-    <!-- css bootstrap -->
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
-    <!-- css comon -->
     <link rel="stylesheet" th:href="@{/css/style.css}" />
-    <!-- jquery -->
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+
+    <!-- script -->
     <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <title>Bee</title>
 </head>
 <body>
     <div class="container-fluid">
-        <!-- header -->
         <header th:replace="fragments/header :: admin" />
 
         <main class="row my-3">
@@ -35,12 +32,9 @@
             </div>
         </main>
 
-        <!-- footer -->
         <footer th:replace="fragments/footer :: footer"> </footer>
-        <!-- JS -->
         <th:block layout:fragment="script"></th:block>
     </div>
-
     <!-- js bootstrap -->
     <script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
     <!-- js validation -->

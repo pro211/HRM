@@ -17,7 +17,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
-public class HomeController {
+public class InfomationController {
 
     private final EmployeeService employeeService;
 
@@ -27,7 +27,7 @@ public class HomeController {
         Employee employee = (Employee) authentication.getPrincipal();
         model.addAttribute("profileActive", true);
         model.addAttribute("profile", employeeService.findByBusinessName(employee.getBusinessName()));
-        return "us_profile";
+        return "employee/profile";
     }
 
     @GetMapping("/employee/editprofile")
@@ -35,7 +35,7 @@ public class HomeController {
         Employee employee = (Employee) authentication.getPrincipal();
         model.addAttribute("profileActive", true);
         model.addAttribute("profile", employeeService.findByBusinessName(employee.getBusinessName()));
-        return "us_profile_form";
+        return "employee/profile_form";
     }
 
     @PostMapping("/employee/save")

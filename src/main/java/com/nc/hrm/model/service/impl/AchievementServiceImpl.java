@@ -3,35 +3,36 @@ package com.nc.hrm.model.service.impl;
 import com.nc.hrm.model.entity.Achievement;
 import com.nc.hrm.model.repository.AchievementRepository;
 import com.nc.hrm.model.service.AchievementService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
-
 
 @Service
-@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class AchievementServiceImpl implements AchievementService {
 
     @Autowired
     AchievementRepository achievementRepository;
 
+    @Override
+    public Page<Achievement> findAll(Pageable page) {
+        return achievementRepository.findAll(page);
+    }
 
     @Override
-    public Iterable<Achievement> findAll() {
+    public List<Achievement> findAll() {
         return achievementRepository.findAll();
     }
 
     @Override
-    public void save(Achievement achievement) {
-        achievementRepository.save(achievement);
+    public Achievement save(Achievement achievement) {
+        return achievementRepository.save(achievement);
     }
 
     @Override
-    public Optional<Achievement> finById(int id) {
-        return achievementRepository.findById(id);
+    public Achievement findById(int id) {
+        return achievementRepository.getOne(id);
     }
 
     @Override

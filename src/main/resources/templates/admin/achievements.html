@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Achievements</title>
+
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="table-header mb-2">
+        <h2>Khen thưởng kỷ luật</h2>
+        <div class="d-flex justify-content-between">
+            <button class="btn btn-success aBtn" data-toggle="modal" data-target="#achievementModal"> Thêm </button>
+            <form class="form-inline">
+                <input id="filter" class="form-control mr-sm-2" type="search" placeholder="&#xF002; Search"
+                       style="font-family:Arial, FontAwesome" aria-label="Search">
+            </form>
+        </div>
+    </div>
+
+    <table id="achievementsTable" class="table table-hover table-bordered">
+        <thead>
+        </thead>
+        <tbody>
+        <tr th:each=" achievement: ${achievements}">
+            <td th:text="${achievement.id}"></td>
+            <td th:text="${achievement.employee.businessName}"></td>
+            <td th:text="${achievement.employee.employeeName}"></td>
+            <td th:text="${achievement.type ? 'Khen thưởng' : 'Kỷ Luật'}"></td>
+            <td th:text="${achievement.applyDate}"></td>
+            <td th:text="${achievement.reason}"></td>
+            <td th:text="${achievement.amount}"></td>
+            <td>
+                <a class="btn btn-primary eBtn"  th:href="@{/admin/achievement/find/(id=${achievement.id})}"
+                   data-toggle="modal" data-target="#achievementModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>
+                <a class="btn btn-danger dBtn" th:href="@{/admin/achievement/delete/(id=${achievement.id})}"
+                   data-toggle="modal" data-target="#deleteModal"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--    Filter-->
+    <table id="achievementFilters" class="table table-hover table-bordered">
+        <thead>
+        </thead>
+        <tbody>
+        <tr th:each=" achievement: ${achievementFilters}">
+            <td th:text="${achievement.id}"></td>
+            <td th:text="${achievement.employee.businessName}"></td>
+            <td th:text="${achievement.employee.employeeName}"></td>
+            <td th:text="${achievement.type ? 'Khen thưởng' : 'Kỷ Luật'}"></td>
+            <td th:text="${achievement.applyDate}"></td>
+            <td th:text="${achievement.reason}"></td>
+            <td th:text="${achievement.amount}"></td>
+            <td>
+                <a class="btn btn-primary eBtn"  th:href="@{/admin/achievement/find/(id=${achievement.id})}"
+                   data-toggle="modal" data-target="#achievementModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>
+                <a class="btn btn-danger dBtn" th:href="@{/admin/achievement/delete/(id=${achievement.id})}"
+                   data-toggle="modal" data-target="#deleteModal"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--        Pagination-->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${currentPage} == 0 ? 'disabled' : ''">
+                <a class="page-link" th:href="@{/admin/achievement/(page=${currentPage - 1})}">
+                    <i class="fa fa-backward" aria-hidden="true"> </i></a></li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(0,totalPage)}"
+                th:classappend="${currentPage == i}? 'active': ''" >
+                <a th:text="${i+1}" class="page-link" th:href="@{/admin/achievement/(page=${i})}">
+                </a></li>
+            <li class="page-item" th:classappend="${currentPage} == ${totalPage} ? 'disabled' : ''">
+                <a class="page-link" th:href="@{/admin/achievement/(page=${currentPage + 1})}">
+                    <i class="fa fa-forward" aria-hidden="true"></i> </a></li>
+        </ul>
+    </nav>
+
+    <!--    Show Form-->
+    <div class="achievement-form">
+        <form th:action="@{/admin/achievement/save}" method="post" id="myForm">
+            <div class="modal fade" id="achievementModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="achievementTitle">Khen thưởng & Kỷ luật</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" class="form-control" id="id" name="id">
+                            <input type="hidden" class="form-control" id="employee" name="employee">
+                            <div class="form-group">
+                                <label for="nameEmp" class="col-form-label">Họ Và Tên:</label>
+                                <input type="text" class="form-control" id="nameEmp" name="code" readonly="readonly">
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="codeEmp" class="col-form-label">Mã Nhân Viên: </label>
+                                        <input type="text" class="form-control" id="codeEmp" name="codeEmp" required>
+                                        <label class="error" id="exitscodeEmp"></label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="type" class="col-form-label">Loại:</label>
+                                        <select class="form-control" id="type" name="active">
+                                            <option value="1">Khen thưởng</option>
+                                            <option value="0">Kỷ luật</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="reason" class="col-form-label">Lý do:</label>
+                                <textarea class="form-control" id="reason" name="reason"></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="applyDate" class="col-form-label">Ngày Áp Dụng: </label>
+                                        <input type="text" class="form-control" id="applyDate" readonly="readonly" name="applyDate" placeholder="dd/MM/yyyy">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="amount" class="col-form-label">Số tiền:</label>
+                                        <input type="text" class="form-control" id="amount" name="amount" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary sBtn" value="Save"></input>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--        Confirm delete-->
+    <div class="modal" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="alert alert-danger">Bạn có muốn xóa khen thưởng hoặc kỷ luật này?</p>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-danger" href="" id="delBtn"> Delete </a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> Close </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<th:block layout:fragment="script">
+    <script th:src="@{/js/achievement.js}"></script>
+</th:block>
+</body>
+</html>

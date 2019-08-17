@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Achievements</title>
+
+</head>
+<body>
+<section layout:fragment="content">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#thongke1" role="tab" aria-controls="thongke1" aria-selected="true">Thống kê 1</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#thongke2" role="tab" aria-controls="thongke2" aria-selected="false">Thống kê 2</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#thongke3" role="tab" aria-controls="thongke3" aria-selected="false">Thống kê 3</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="thongke1" role="tabpanel" aria-labelledby="home-tab">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Larry the Bird</td>
+                    <td>@twitter</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="thongke2" role="tabpanel" aria-labelledby="profile-tab">
+            Hello Tab 2
+        </div>
+        <div class="tab-pane fade" id="thongke3" role="tabpanel" aria-labelledby="contact-tab">
+            Hello Tab 3
+        </div>
+    </div>
+</section>
+<th:block layout:fragment="script">
+    <script th:src="@{/js/statistical.js}"></script>
+</th:block>
+</body>
+</html>

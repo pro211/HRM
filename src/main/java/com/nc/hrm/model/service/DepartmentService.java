@@ -1,19 +1,8 @@
 package com.nc.hrm.model.service;
-
-
 import com.nc.hrm.model.entity.Department;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.nc.hrm.model.entity.Employee;
 
-import java.util.Optional;
+import java.util.List;
 
-public interface DepartmentService {
-
-    Page<Department> findAll(Pageable page);
-
-    void save(Department department);
-
-    Department findOne(int id);
-
-    void delete(int id);
+public interface DepartmentService extends BaseService<Department, Integer> {
 }

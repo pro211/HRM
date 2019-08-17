@@ -1,6 +1,7 @@
 package com.nc.hrm.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nc.hrm.util.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,10 +40,13 @@ public class Leave  {
     @Column(name = "reason")
     private String reason;
 
-    @Column(name = "status")
-    private Integer status;
-
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "status_id")
+    private LeaveStatus status;
 }

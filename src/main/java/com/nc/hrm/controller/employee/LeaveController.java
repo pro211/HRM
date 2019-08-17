@@ -32,10 +32,10 @@ public class LeaveController {
     @GetMapping("/employee/leave")
     public String home(Authentication authentication, Model model) {
         Employee employee = (Employee) authentication.getPrincipal();
-        List<Leave> leave = leaveService.findByEmployeeId(employee.getId());
+//        List<Leave> leave = leaveService.findByEmployeeId(employee.getId());
         model.addAttribute("leaveActive", true);
-        model.addAttribute("leave", leave);
-        return "us_leave";
+//        model.addAttribute("leave", leave);
+        return "employee/leave";
     }
 
     @GetMapping("/employee/newleave")
@@ -43,17 +43,16 @@ public class LeaveController {
         Leave leave = new Leave();
         model.addAttribute("leave", leave);
         model.addAttribute("leaveActive", true);
-        return "us_leave_form";
+        return "employee/leave_form";
     }
 
     @PostMapping("/employee/leave/save")
     public String saveProfile(@Valid Leave leave, Authentication authentication,BindingResult result, RedirectAttributes redirect) {
         leave.setApplyDate(LocalDate.now());
-        leave.setStatus(2);
         Employee employee = (Employee) authentication.getPrincipal();
         leave.setEmployee(employee);
         if (result.hasErrors()) {
-            return "us_leave_form";
+            return "employee/leave_form";
         }
         leaveService.save(leave);
         return "redirect:/employee/leave";

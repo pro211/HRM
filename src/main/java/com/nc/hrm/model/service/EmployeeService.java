@@ -2,16 +2,10 @@ package com.nc.hrm.model.service;
 
 import com.nc.hrm.model.entity.Employee;
 
-import java.util.Optional;
+import java.util.List;
 
-public interface EmployeeService {
-    Iterable<Employee> findAll();
+public interface EmployeeService extends BaseService<Employee, Integer> {
+    Employee findByBusinessName(String businessName);
 
-    void save(Employee employee);
-
-    Optional<Employee> finById(int id);
-
-    Employee findByBusinessName(String code);
-
-    void delete(int id);
+    List<Employee> findByDepartmentId (int departmentId);
 }

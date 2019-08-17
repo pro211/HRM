@@ -1,10 +1,13 @@
 package com.nc.hrm.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -23,6 +26,8 @@ public class Achievement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern="dd-MM-yyyy")
     @Column(name = "apply_date")
     private LocalDate applyDate;
 
@@ -38,6 +43,7 @@ public class Achievement {
     @Column(name = "note")
     private String note;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;

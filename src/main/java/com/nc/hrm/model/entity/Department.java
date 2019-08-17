@@ -1,6 +1,7 @@
 package com.nc.hrm.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +35,7 @@ public class Department {
     private Boolean active;
 
     @OneToMany(mappedBy = "department", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
     private Set<Employee> employee;
 
     @OneToMany(mappedBy = "department", cascade = CascadeType.REMOVE)

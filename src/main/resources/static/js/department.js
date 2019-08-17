@@ -4,6 +4,7 @@ $(document).ready(function(){
         $('#myForm .form-control').removeClass('error');
         var href = $(this).attr('href');
         $.get(href, function(department,status){
+            console.log(department)
             $('.department-form #id').val(department.id)
             $('.department-form #code').val(department.code)
             $('.department-form #name').val(department.name)
@@ -51,7 +52,7 @@ $(document).ready(function(){
                 required: 'Tên phòng ban không được để trống!',
                 lettersonly: 'Tên không hợp lệ!'
             }
-        }
+        },
     });
     var tableHead = '<>' +
         '<th> # </th>' +
@@ -62,16 +63,25 @@ $(document).ready(function(){
         '</>';
     $('#departmentsTable thead').append(tableHead);
 
+    $('#departmentFilters thead').append(tableHead);
+
+    $('#departmentFilters').hide();
+
     $("#filter").on("keyup", function() {
         var inputValue = $(this).val().toLowerCase();
 
-        $("#departmentsTable tr").filter(function() {
+        $("#departmentFilters tr").filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(inputValue) > -1)
         });
         if(inputValue.length > 0){
+            $('#departmentsTable').hide();
+            $('#departmentFilters').show();
             $(".pagination").hide();
         }else{
+            $('#departmentsTable').show();
+            $('#departmentFilters').hide();
             $(".pagination").show();
         }
     });
+
 })
