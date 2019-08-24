@@ -46,7 +46,12 @@ public class LeaveServiceImpl implements LeaveService {
     }
 
     @Override
-    public List<Leave> findByEmployeeIdAndS(int employeeId) {
-        return null;
+    public List<Leave> findByStatusIdIsNot(int statusId) {
+        return leaveRepository.findByStatusIdIsNot(statusId);
+    }
+
+    @Override
+    public List<Leave> findByStatusId(int statusId) {
+        return leaveRepository.findByStatusId(statusId);
     }
 }

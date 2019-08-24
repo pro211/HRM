@@ -41,6 +41,11 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
+    public Contract findByCode(String code) {
+        return null;
+    }
+
+    @Override
     public List<Contract> findByEmployeeId(int employeeId) {
         return contractRepository.findByEmployeeId(employeeId);
     }

@@ -2,6 +2,7 @@ package com.nc.hrm.controller.employee;
 
 import com.nc.hrm.model.entity.Employee;
 import com.nc.hrm.model.entity.Leave;
+import com.nc.hrm.model.entity.LeaveStatus;
 import com.nc.hrm.model.service.EmployeeService;
 import com.nc.hrm.model.service.LeaveService;
 import com.nc.hrm.util.Pages;
@@ -32,9 +33,9 @@ public class LeaveController {
     @GetMapping("/employee/leave")
     public String home(Authentication authentication, Model model) {
         Employee employee = (Employee) authentication.getPrincipal();
-//        List<Leave> leave = leaveService.findByEmployeeId(employee.getId());
+        List<Leave> leave = leaveService.findByEmployeeId(employee.getId());
         model.addAttribute("leaveActive", true);
-//        model.addAttribute("leave", leave);
+        model.addAttribute("leave", leave);
         return "employee/leave";
     }
 
@@ -51,6 +52,9 @@ public class LeaveController {
         leave.setApplyDate(LocalDate.now());
         Employee employee = (Employee) authentication.getPrincipal();
         leave.setEmployee(employee);
+        LeaveStatus leaveStatus = new LeaveStatus();
+        leaveStatus.setId(4);
+        leave.setStatus(leaveStatus);
         if (result.hasErrors()) {
             return "employee/leave_form";
         }

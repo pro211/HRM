@@ -32,8 +32,23 @@ public class AdminLeaveController {
         model.addAttribute("status", leaveStatusService.findAll());
         model.addAttribute("leaveFilters", leaveService.findAll());
         int totalPage = leaveService.findAll(PageRequest.of(page, 5)).getTotalPages() -1;
+        model.addAttribute("leaveStatusIsNot", leaveService.findByStatusIdIsNot(5));
+        model.addAttribute("leaveStatus", leaveService.findByStatusId(5));
         model.addAttribute("totalPage", totalPage);
         return "admin/leaves";
+    }
+
+    @GetMapping("/admin/leaveStatus")
+    public String getLeaveStatus(Model model, @RequestParam(defaultValue = "0") int page) {
+        model.addAttribute("leaves", leaveService.findAll(PageRequest.of(page,5)));
+        model.addAttribute("currentPage", page);
+        model.addAttribute("status", leaveStatusService.findAll());
+        model.addAttribute("leaveFilters", leaveService.findAll());
+        int totalPage = leaveService.findAll(PageRequest.of(page, 5)).getTotalPages() -1;
+        model.addAttribute("leaveStatusIsNot", leaveService.findByStatusIdIsNot(5));
+        model.addAttribute("leaveStatus", leaveService.findByStatusId(5));
+        model.addAttribute("totalPage", totalPage);
+        return "admin/leavesStatus";
     }
 
     @GetMapping("/admin/leave/find")
