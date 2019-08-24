@@ -38,6 +38,12 @@ public class Salary {
     @Column(name = "year")
     private Integer year;
 
+    @Column(name = "basic_day_work")
+    private Integer basicDayWork;
+
+    @Column(name = "real_day_work")
+    private Integer realDayWork;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contract_id")
@@ -49,7 +55,8 @@ public class Salary {
     private Employee employee;
 
     public Long getTotalIncome(){
-        Long totalIncome = contract.getBaseSalary() + contract.getSubsidiesSalary() + getTotalBonus() - getTotalDeduct();
+        Long totalIncome = (contract.getBaseSalary()/basicDayWork)*realDayWork
+                + contract.getSubsidiesSalary() + getTotalBonus() - getTotalDeduct();
         return totalIncome;
     }
 

@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface LeaveService extends BaseService<Leave, Integer> {
     List<Leave> findByEmployeeId(int employeeId);
+    List<Leave> findByEmployeeIdAndS(int employeeId);
 }
