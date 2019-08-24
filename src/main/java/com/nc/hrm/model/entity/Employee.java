@@ -114,6 +114,9 @@ public class Employee implements UserDetails {
     @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
     private Set<Achievement> achievements;
 
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
+    private Set<Salary> salaries;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return isAdmin

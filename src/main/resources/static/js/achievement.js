@@ -6,7 +6,7 @@ $(document).ready(function() {
         '<th> Loại </th>' +
         '<th> Ngày Áp Dụng </th>' +
         '<th> Lý Do </th>' +
-        '<th> Số Tiền (VND) </th>' +
+        '<th> Số Tiền </th>' +
         '<th colspan="2" > Hành Động </th>' +
         '</>';
     $('#achievementsTable thead').append(tableHead);

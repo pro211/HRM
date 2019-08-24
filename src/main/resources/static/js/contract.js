@@ -27,8 +27,11 @@ $(document).ready(function() {
             $('.contract-form #code').val(map.contract.code)
             $('.contract-form #baseSalary').val(map.contract.baseSalary)
             $('.contract-form #bonusSalary').val(map.contract.bonusSalary)
+            $('.contract-form #subsidiesSalary').val(map.contract.subsidiesSalary)
             $('.contract-form #startDate').val(map.contract.startDate)
             $('.contract-form #endDate').val(map.contract.endDate)
+            $('#position').val(map.position.id)
+            $('#type').val(map.type.id)
         })
     });
 
@@ -43,8 +46,11 @@ $(document).ready(function() {
         $('.contract-form #code').val('')
         $('.contract-form #baseSalary').val('')
         $('.contract-form #bonusSalary').val('')
+        $('.contract-form #subsidiesSalary').val('')
         $('.contract-form #startDate').val('')
         $('.contract-form #endDate').val('')
+        $('#position').val('')
+        $('#type').val('')
     });
 
     $('.table .dBtn').on('click',function(event){
@@ -59,7 +65,7 @@ $(document).ready(function() {
         }
     });
 
-    $('.sBtn').on('click',function(event){
+    $('input[name=codeEmp]').blur(function(e) {
         var codeEmp = $('#codeEmp').val();
         console.log(codeEmp);
         var href = '/hrm/admin/employee/findEmp/?businessName='+ codeEmp;
@@ -85,6 +91,10 @@ $(document).ready(function() {
         return this.optional(element) || /^[a-z àáâãèéêếìíòóôõùúăđĩũơưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởụủứừửữự]+$/i.test(value);
     }, "Letters and spaces only please");
 
+    jQuery.validator.addMethod("noSpace", function(value, element) {
+        return value.indexOf(" ") < 0 && value != "";
+    }, "No space please and don't leave it empty");
+
 
     $('#startDate').datepicker({ dateFormat: "dd-mm-yy" }).val();
     $('#endDate').datepicker({ dateFormat: "dd-mm-yy" }).val();
@@ -93,7 +103,8 @@ $(document).ready(function() {
         rules: {
             codeEmp: {
                 required: true,
-                minlength: 2
+                minlength: 2,
+                noSpace: true
             },
             code: {
                 required: true,
@@ -117,6 +128,10 @@ $(document).ready(function() {
                 required: true,
                 number: true
             },
+            subsidiesSalary: {
+                required: true,
+                number: true
+            },
             startDate: {
                 required: true,
             },
@@ -127,7 +142,8 @@ $(document).ready(function() {
         messages: {
             codeEmp: {
                 required: 'Mã nhân viên không được để trống!',
-                minlength: 'Mã nhân viên tối thiểu 2 ký tự!'
+                minlength: 'Mã nhân viên tối thiểu 2 ký tự!',
+                noSpace: 'Mã nhân viên không hợp lệ!'
             },
             code: {
                 required: 'Mã hợp đồng không được để trống!',
@@ -148,6 +164,10 @@ $(document).ready(function() {
                 number: 'Lương không hợp lệ!'
             },
             bonusSalary: {
+                required: 'Lương không được để trống!',
+                number: 'Lương không hợp lệ!'
+            },
+            subsidiesSalary: {
                 required: 'Lương không được để trống!',
                 number: 'Lương không hợp lệ!'
             },

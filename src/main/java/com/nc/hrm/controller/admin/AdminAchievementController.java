@@ -1,6 +1,7 @@
 package com.nc.hrm.controller.admin;
 
 import com.nc.hrm.model.entity.Achievement;
+import com.nc.hrm.model.entity.Contract;
 import com.nc.hrm.model.entity.Employee;
 import com.nc.hrm.model.service.AchievementService;
 import com.nc.hrm.model.service.EmployeeService;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -53,5 +55,12 @@ public class AdminAchievementController {
     public String deleteAchievement (Integer id) {
         achievementService.delete(id);
         return "redirect:/admin/achievement";
+    }
+
+    @GetMapping("/admin/achievement/findByEmployee")
+    @ResponseBody
+    public List<Achievement> findByEmployee(int id) {
+        List<Achievement> listAchievements = achievementService.findByEmployeeId(id);
+        return listAchievements;
     }
 }

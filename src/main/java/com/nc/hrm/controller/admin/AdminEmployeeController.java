@@ -2,6 +2,7 @@ package com.nc.hrm.controller.admin;
 
 import com.nc.hrm.model.entity.*;
 import com.nc.hrm.model.service.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -16,21 +17,14 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class AdminEmployeeController {
-    @Autowired
-    private EmployeeService employeeService;
-
-    @Autowired
-    private DepartmentService departmentService;
-
-    @Autowired
-    private AchievementService achievementService;
-
-    @Autowired
-    private ContractService contractService;
-
-    @Autowired
-    private LeaveService leaveService;
+    private final EmployeeService employeeService;
+    private final DepartmentService departmentService;
+    private final AchievementService achievementService;
+    private final ContractService contractService;
+    private final LeaveService leaveService;
+    private final SalaryService salaryService;
 
     @GetMapping("/admin/employee")
     public String getEmployees(Model model, @RequestParam(defaultValue = "0") int page){
@@ -66,6 +60,7 @@ public class AdminEmployeeController {
         List<Achievement> listAchievement = achievementService.findByEmployeeId(id);
         List<Contract> listContract = contractService.findByEmployeeId(id);
         List<Leave> listLeave = leaveService.findByEmployeeId(id);
+        List<Salary> listSalary = salaryService.findByEmployeeId(id);
         System.out.println("Achievement: " + listAchievement.size() + "Contract: "+ listContract.size() +"Leave: " + listLeave.size());
         boolean check = false;
         if(listAchievement.size() > 0){
@@ -94,5 +89,12 @@ public class AdminEmployeeController {
     public Employee findEmp(String businessName) {
         Employee employee = employeeService.findByBusinessName(businessName);
         return employee;
+    }
+
+    @GetMapping("/admin/employee/findByDep")
+    @ResponseBody
+    public List<Employee> findEmpByDepartment(int id) {
+        List<Employee> employeeList = employeeService.findByDepartmentId(id);
+        return employeeList;
     }
 }

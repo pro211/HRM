@@ -28,7 +28,7 @@ $(document).ready(function() {
             $('.leave-form #fromDate').val(map.leave.fromDate)
             $('.leave-form #toDate').val(map.leave.toDate)
             $('.leave-form #reason').val(map.leave.reason)
-            $('.leave-form #status').val(map.leave.status)
+            $('.leave-form #status').val(map.status.id)
         })
     });
 
@@ -78,11 +78,16 @@ $(document).ready(function() {
         $('.leave-form #status').val('');
     });
 
+    jQuery.validator.addMethod("noSpace", function(value, element) {
+        return value.indexOf(" ") < 0 && value != "";
+    }, "No space please and don't leave it empty");
+
     var validator = $('#myForm').validate({
         rules: {
             codeEmp: {
                 required: true,
-                minlength: 2
+                minlength: 2,
+                noSpace: true
             },
             code: {
                 required: true,
@@ -111,7 +116,8 @@ $(document).ready(function() {
         messages: {
             codeEmp: {
                 required: 'Mã nhân viên không được để trống!',
-                minlength: 'Mã nhân viên tối thiểu 2 ký tự!'
+                minlength: 'Mã nhân viên tối thiểu 2 ký tự!',
+                noSpace: 'Mã nhân viên không hợp lệ!'
             },
             code: {
                 required: 'Mã hợp đồng không được để trống!',

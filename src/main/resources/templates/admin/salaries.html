@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Salaries</title>
+
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="table-header mb-2">
+        <h2>Quản lý lương</h2>
+        <div class="d-flex justify-content-between">
+            <div class="button-group">
+                <button class="btn btn-success aBtn" data-toggle="modal" data-target="#salaryModal"> Thêm </button>
+                <a class="btn btn-info exBtn"  th:href="@{/admin/salary/download/salaries.xlsx}"> Export</a>
+            </div>
+            <form class="form-inline">
+                <input id="filter" class="form-control mr-sm-2" type="search" placeholder="&#xF002; Search"
+                       style="font-family:Arial, FontAwesome" aria-label="Search">
+            </form>
+        </div>
+    </div>
+    <table id="salariesTable" class="table table-hover table-bordered">
+        <thead>
+        </thead>
+        <tbody>
+        <tr th:each=" salary: ${salaries}">
+            <td th:text="${salary.id}"></td>
+            <td th:text="${salary.month +'/'+ salary.year}"></td>
+            <td th:text="${salary.getEmployee().getBusinessName()}"></td>
+            <td th:text="${salary.getEmployee().getEmployeeName()}"></td>
+            <td th:text="${salary.getAchievement()} + ' VND'"></td>
+            <td th:text="${salary.getTotalIncome()} + ' VND'"></td>
+            <td>
+                <a class="btn btn-info viewBtn"  th:href="@{/admin/salary/find/(id=${salary.id})}"
+                   data-toggle="modal" data-target="#salaryModal"> <i class="fa fa-eye" aria-hidden="true"></i>  </a>
+                <a class="btn btn-success dlBtn" th:href="@{/admin/salary/download/(id=${salary.id})}">
+                   <i class="fa fa-download" aria-hidden="true"></i> </a>
+                <a class="btn btn-danger dBtn" th:href="@{/admin/salary/delete/(id=${salary.id})}"
+                   data-toggle="modal" data-target="#deleteModal"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--            For Filter-->
+    <table id="salaryFilters" class="table table-hover table-bordered">
+        <thead>
+        </thead>
+        <tbody>
+        <tr th:each=" salary: ${salaries}">
+            <td th:text="${salary.id}"></td>
+            <td th:text="${salary.month +'/'+ salary.year}"></td>
+            <td th:text="${salary.getEmployee().getBusinessName()}"></td>
+            <td th:text="${salary.getEmployee().getEmployeeName()}"></td>
+            <td th:text="${salary.getAchievement()} + ' VND'"></td>
+            <td th:text="${salary.getTotalIncome()} + ' VND'"></td>
+            <td>
+                <a class="btn btn-info viewBtn"  th:href="@{/admin/salary/find/(id=${salary.id})}"
+                   data-toggle="modal" data-target="#salaryModal"> <i class="fa fa-eye" aria-hidden="true"></i>  </a>
+                <a class="btn btn-success dlBtn" th:href="@{/admin/salary/download/(id=${salary.id})}">
+                    <i class="fa fa-download" aria-hidden="true"></i> </a>
+                <a class="btn btn-danger dBtn" th:href="@{/admin/salary/delete/(id=${salary.id})}"
+                   data-toggle="modal" data-target="#deleteModal"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!--        Pagination-->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${currentPage} == 0 ? 'disabled' : ''">
+                <a class="page-link" th:href="@{/admin/salary/(page=${currentPage - 1})}">
+                    <i class="fa fa-backward" aria-hidden="true"> </i></a></li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(0,totalPage)}"
+                th:classappend="${currentPage == i}? 'active': ''" >
+                <a th:text="${i+1}" class="page-link" th:href="@{/admin/salary/(page=${i})}">
+                </a></li>
+            <li class="page-item" th:classappend="${currentPage} == ${totalPage} ? 'disabled' : ''">
+                <a class="page-link" th:href="@{/admin/salary/(page=${currentPage + 1})}">
+                    <i class="fa fa-forward" aria-hidden="true"></i> </a></li>
+        </ul>
+    </nav>
+    <!--        Show Form Edit-->
+    <div class="salary-form">
+        <form th:action="@{/admin/salary/save}" method="post" id="myForm">
+            <div class="modal fade" id="salaryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="salaryTitle">Chi tiết Lương Nhân Viên</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" class="form-control" id="id" name="id">
+                            <input type="hidden" class="form-control" id="employee" name="employee">
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="codeEmp" class="col-form-label">Mã nhân viên: </label>
+                                        <input type="text" class="form-control" id="codeEmp" name="codeEmp" required readonly="readonly">
+                                        <label class="error" id="exitscodeEmp"></label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="nameEmp" class="col-form-label">Họ và tên: </label>
+                                        <input type="text" class="form-control" id="nameEmp" name="nameEmp" readonly="readonly">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="month" class="col-form-label">Tháng: </label>
+                                        <input type="text" class="form-control" id="month" name="month" required readonly="readonly">
+                                        <label class="error" id="exitsmonth"></label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="year" class="col-form-label">Năm: </label>
+                                        <input type="text" class="form-control" id="year" name="year" readonly="readonly" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="contract" class="col-form-label">Mã Hợp Đồng: </label>
+                                        <select class="form-control" name="contract" id="contract" readonly="readonly" required>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="baseSalary" class="col-form-label">Lương Cơ Bản: </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">VND</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="baseSalary" name="baseSalary" style="min-width: 50%" readonly="readonly">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="subsidiesSalary" class="col-form-label">Lương Phụ Cấp: </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">VND</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="subsidiesSalary"
+                                                   name="subsidiesSalary" style="min-width: 50%" readonly="readonly">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="personalIncomeTax" class="col-form-label">Thuế TNCN: </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">VND</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="personalIncomeTax"
+                                                   name="personalIncomeTax" style="min-width: 50%" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="socialSecurity" class="col-form-label">Bảo Hiểm Xã Hội: </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">VND</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="socialSecurity"
+                                                   name="socialSecurity" style="min-width: 50%" required >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="healthInsurance" class="col-form-label">Bảo Hiểm Y Tế: </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">VND</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="healthInsurance"
+                                                   name="healthInsurance" style="min-width: 50%" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="achievement" class="col-form-label">Khen Thưởng & Kỷ Luật </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">VND</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="achievement"
+                                                   name="achievement" style="min-width: 50%">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="commission" class="col-form-label">Thưởng Kinh Doanh: </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">VND</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="commission"
+                                                   name="commission" style="min-width: 50%" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-warning" id="editBtn" value="Edit">
+                            <input type="submit" class="btn btn-primary" value="Save">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--        Confirm delete-->
+    <div class="modal" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="alert alert-danger">Bạn có muốn xóa lương nhân viên này?</p>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-danger" href="" id="delBtn"> Delete </a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> Close </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<th:block layout:fragment="script">
+    <script th:src="@{/js/salary.js}"></script>
+</th:block>
+</body>
+</html>

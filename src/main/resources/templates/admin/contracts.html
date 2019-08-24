@@ -120,8 +120,6 @@
                                                         th:utext="${position.name}"/>
                                             </select>
                                         </div>
-
-
                                     </div>
                                 </div>
                                 <div class="row">
@@ -148,13 +146,23 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="baseSalary" class="col-form-label">Lương Cơ Bản: </label>
-                                            <input type="text" class="form-control" id="baseSalary" name="baseSalary" required>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">VND</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="baseSalary" name="baseSalary" style="min-width: 50%" required>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="bonusSalary" class="col-form-label">Lương Phụ Cấp: </label>
-                                            <input type="text" class="form-control" id="bonusSalary" name="bonusSalary" required>
+                                            <label for="subsidiesSalary" class="col-form-label">Lương Phụ Cấp: </label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">VND</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="subsidiesSalary" name="subsidiesSalary" style="min-width: 50%" required>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

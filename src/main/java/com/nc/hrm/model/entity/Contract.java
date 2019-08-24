@@ -8,9 +8,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -41,8 +43,8 @@ public class Contract {
     @Column(name = "base_salary")
     private Long baseSalary;
 
-    @Column(name = "bonus_salary")
-    private Long bonusSalary;
+    @Column(name = "subsidies_salary")
+    private Long subsidiesSalary;
 
     @Column(name = "note")
     private String note;
@@ -61,5 +63,8 @@ public class Contract {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "position")
     private JobTitle position;
+
+    @OneToMany(mappedBy = "contract", cascade = CascadeType.REMOVE)
+    private Set<Salary> salaries;
 
 }

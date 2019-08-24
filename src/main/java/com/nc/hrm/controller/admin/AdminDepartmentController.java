@@ -37,7 +37,7 @@ public class AdminDepartmentController {
     }
 
     @GetMapping("/admin/department/delete")
-    public String delete(Integer id) {
+    public String delete(Integer id, Model model) {
         List<Employee> listEmp = employeeService.findByDepartmentId(id);
         if(listEmp.size() > 0) {
             System.out.println("Phong ban co: " + listEmp.size() + "nhan vien");
