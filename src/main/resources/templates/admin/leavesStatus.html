@@ -10,11 +10,9 @@
 <body>
 <section layout:fragment="content">
     <div class="table-header mb-2">
-        <h2>Danh Sách Nghỉ</h2>
+        <h2>Danh Sách Xin Nghỉ</h2>
         <div class="d-flex justify-content-between">
             <div>
-                <button class="btn btn-success aBtn" data-toggle="modal" data-target="#leaveModal"> Thêm </button>
-                <a class="btn btn-primary eBtn"  th:href="@{/admin/leaveStatus}">Xét duyệt</a>
             </div>
             <form class="form-inline">
                 <input id="filter" class="form-control mr-sm-2" type="search" placeholder="&#xF002; Search"
@@ -27,7 +25,7 @@
         <thead>
         </thead>
         <tbody>
-        <tr th:each=" leave: ${leaveStatus}">
+        <tr th:each=" leave: ${leaveStatusIsNot}">
             <td th:text="${leave.id}"></td>
             <td th:text="${leave.employee.businessName}"></td>
             <td th:text="${leave.employee.employeeName}"></td>
@@ -46,45 +44,45 @@
         </tbody>
     </table>
 
-    <!--        Pagination-->
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <li class="page-item" th:classappend="${currentPage} == 0 ? 'disabled' : ''">
-                <a class="page-link" th:href="@{/admin/leave/(page=${currentPage - 1})}">
-                    <i class="fa fa-backward" aria-hidden="true"> </i></a></li>
-            <li class="page-item" th:each="i : ${#numbers.sequence(0,totalPage)}"
-                th:classappend="${currentPage == i}? 'active': ''" >
-                <a th:text="${i+1}" class="page-link" th:href="@{/admin/leave/(page=${i})}">
-                </a></li>
-            <li class="page-item" th:classappend="${currentPage} == ${totalPage} ? 'disabled' : ''">
-                <a class="page-link" th:href="@{/admin/leave/(page=${currentPage + 1})}">
-                    <i class="fa fa-forward" aria-hidden="true"></i> </a></li>
-        </ul>
-    </nav>
+<!--    &lt;!&ndash;        Pagination&ndash;&gt;-->
+<!--    <nav aria-label="Page navigation example">-->
+<!--        <ul class="pagination">-->
+<!--            <li class="page-item" th:classappend="${currentPage} == 0 ? 'disabled' : ''">-->
+<!--                <a class="page-link" th:href="@{/admin/leave/(page=${currentPage - 1})}">-->
+<!--                    <i class="fa fa-backward" aria-hidden="true"> </i></a></li>-->
+<!--            <li class="page-item" th:each="i : ${#numbers.sequence(0,totalPage)}"-->
+<!--                th:classappend="${currentPage == i}? 'active': ''" >-->
+<!--                <a th:text="${i+1}" class="page-link" th:href="@{/admin/leave/(page=${i})}">-->
+<!--                </a></li>-->
+<!--            <li class="page-item" th:classappend="${currentPage} == ${totalPage} ? 'disabled' : ''">-->
+<!--                <a class="page-link" th:href="@{/admin/leave/(page=${currentPage + 1})}">-->
+<!--                    <i class="fa fa-forward" aria-hidden="true"></i> </a></li>-->
+<!--        </ul>-->
+<!--    </nav>-->
 
-<!--    Filter-->
-    <table id="leaveFilters" class="table table-hover table-bordered">
-        <thead>
-        </thead>
-        <tbody>
-        <tr th:each=" leave: ${leaveFilters}">
-            <td th:text="${leave.id}"></td>
-            <td th:text="${leave.employee.businessName}"></td>
-            <td th:text="${leave.employee.employeeName}"></td>
-            <td th:text="${leave.reason}"></td>
-            <td th:text="${leave.applyDate}"></td>
-            <td th:text="${leave.fromDate}"></td>
-            <td th:text="${leave.toDate}"></td>
-            <td th:text="${leave.status.getName()}"></td>
-            <td>
-                <a class="btn btn-primary eBtn"  th:href="@{/admin/leave/find/(id=${leave.id})}"
-                   data-toggle="modal" data-target="#leaveModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>
-                <a class="btn btn-danger dBtn" th:href="@{/admin/leave/delete/(id=${leave.id})}"
-                   data-toggle="modal" data-target="#deleteModal"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<!--&lt;!&ndash;    Filter&ndash;&gt;-->
+<!--    <table id="leaveFilters" class="table table-hover table-bordered">-->
+<!--        <thead>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each=" leave: ${leaveFilters}">-->
+<!--            <td th:text="${leave.id}"></td>-->
+<!--            <td th:text="${leave.employee.businessName}"></td>-->
+<!--            <td th:text="${leave.employee.employeeName}"></td>-->
+<!--            <td th:text="${leave.reason}"></td>-->
+<!--            <td th:text="${leave.applyDate}"></td>-->
+<!--            <td th:text="${leave.fromDate}"></td>-->
+<!--            <td th:text="${leave.toDate}"></td>-->
+<!--            <td th:text="${leave.status.getName()}"></td>-->
+<!--            <td>-->
+<!--                <a class="btn btn-primary eBtn"  th:href="@{/admin/leave/find/(id=${leave.id})}"-->
+<!--                   data-toggle="modal" data-target="#leaveModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>-->
+<!--                <a class="btn btn-danger dBtn" th:href="@{/admin/leave/delete/(id=${leave.id})}"-->
+<!--                   data-toggle="modal" data-target="#deleteModal"> <i class="fa fa-trash" aria-hidden="true"></i> </a>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
 
     <!--        Show Form Edit-->
     <div class="leave-form">
@@ -168,20 +166,20 @@
             </div>
         </form>
     </div>
-    <!--        Confirm delete-->
-    <div class="modal" id="deleteModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <p class="alert alert-danger">Bạn có muốn xóa đơn nghỉ phép này?</p>
-                </div>
-                <div class="modal-footer">
-                    <a class="btn btn-danger" href="" id="delBtn"> Delete </a>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> Close </button>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--    &lt;!&ndash;        Confirm delete&ndash;&gt;-->
+<!--    <div class="modal" id="deleteModal" tabindex="-1" role="dialog">-->
+<!--        <div class="modal-dialog" role="document">-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-body">-->
+<!--                    <p class="alert alert-danger">Bạn có muốn xóa đơn nghỉ phép này?</p>-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <a class="btn btn-danger" href="" id="delBtn"> Delete </a>-->
+<!--                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> Close </button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 </section>
 <th:block layout:fragment="script">
     <script th:src="@{/js/leave.js}"></script>
