@@ -44,6 +44,12 @@ public class Salary {
     @Column(name = "real_day_work")
     private Integer realDayWork;
 
+    @Column(name = "overtime_days")
+    private Integer overtimeDays;
+
+    @Column(name = "overtime_percent")
+    private Integer overtimePercent;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contract_id")
@@ -56,6 +62,7 @@ public class Salary {
 
     public Long getTotalIncome(){
         Long totalIncome = (contract.getBaseSalary()/basicDayWork)*realDayWork
+                + (contract.getBaseSalary()/basicDayWork)*(overtimePercent/100)*overtimeDays
                 + contract.getSubsidiesSalary() + getTotalBonus() - getTotalDeduct();
         return totalIncome;
     }

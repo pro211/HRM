@@ -4,6 +4,7 @@ $(document).ready(function () {
         '<th> Tháng </th>' +
         '<th> Mã Nhân Viên </th>' +
         '<th> Họ Và Tên </th>' +
+        '<th> Ngày Công Thực </th>' +
         '<th> Khen Thưởng & Kỷ Luật</th>' +
         '<th> Thực Lĩnh</th>' +
         '<th colspan="3" > Hành Động </th>' +
@@ -31,7 +32,11 @@ $(document).ready(function () {
             $('.salary-form #id').val(map.salary.id)
             $('.salary-form #month').val(map.salary.month)
             $('.salary-form #year').val(map.salary.year)
+            $('.salary-form #basicDayWork').val(map.salary.basicDayWork)
+            $('.salary-form #realDayWork').val(map.salary.realDayWork)
             $('.salary-form #baseSalary').val(map.contract.baseSalary)
+            $('.salary-form #overtimeDays').val(map.salary.overtimeDays)
+            $('.salary-form #overtimePercent').val(map.salary.overtimePercent)
             $('.salary-form #subsidiesSalary').val(map.contract.subsidiesSalary)
             $('.salary-form #socialSecurity').val(map.salary.socialSecurity)
             $('.salary-form #healthInsurance').val(map.salary.healthInsurance)
@@ -47,7 +52,7 @@ $(document).ready(function () {
     });
 
     $('#editBtn').on('click',function(event){
-        $('#month, #year, #socialSecurity, #healthInsurance, #personalIncomeTax, #commission').removeAttr("readonly");
+        $('#month, #year, #socialSecurity, #healthInsurance, #personalIncomeTax, #commission, #overtimePercent, #overtimeDays, #realDayWork, #basicDayWork').removeAttr("readonly");
         $('#month').focus();
     });
 
@@ -60,7 +65,7 @@ $(document).ready(function () {
         validator.resetForm();
         $('.salary-form #contract').empty();
         $('#nameEmp, #baseSalary, #subsidiesSalary, #achievement').attr("readonly", "readonly");
-        $('#codeEmp, #contract, #month, #year, #socialSecurity, #healthInsurance, #personalIncomeTax, #commission').removeAttr("readonly");
+        $('#codeEmp, #contract, #month, #year, #socialSecurity, #healthInsurance, #personalIncomeTax, #commission, #overtimePercent, #overtimeDays, #realDayWork, #basicDayWork').removeAttr("readonly");
         $('.salary-form #codeEmp').focus()
         $('.salary-form #nameEmp').val('')
         $('.salary-form #employee').val('')
@@ -68,7 +73,11 @@ $(document).ready(function () {
         $('.salary-form #id').val('')
         $('.salary-form #month').val('')
         $('.salary-form #year').val('')
+        $('.salary-form #overtimePercent').val('')
+        $('.salary-form #overtimeDays').val('')
         $('.salary-form #baseSalary').val('')
+        $('.salary-form #basicDayWork').val('')
+        $('.salary-form #realDayWork').val('')
         $('.salary-form #subsidiesSalary').val('')
         $('.salary-form #socialSecurity').val('')
         $('.salary-form #healthInsurance').val('')
@@ -191,9 +200,25 @@ $(document).ready(function () {
                 required: true,
                 number: true
             },
-            commission: {
+            overtimePercent: {
                 required: true,
+                number: true,
+                maxlength: 3,
+            },
+            overtimeDays: {
+                required: true,
+                max: 10,
                 number: true
+            },
+            realDayWork: {
+                required: true,
+                number: true,
+                max: 31
+            },
+            basicDayWork: {
+                required: true,
+                number: true,
+                max: 31
             }
         },
         messages: {
@@ -232,6 +257,26 @@ $(document).ready(function () {
             commission: {
                 required: 'Lương thưởng không được để trống!',
                 number: 'Lương thưởng không hợp lệ!'
+            },
+            overtimePercent: {
+                required: 'Phần trăm lương OT không được để trống!',
+                number: 'Không hợp lệ!',
+                maxlength: 'Phần trăm OT < 1000%'
+            },
+            overtimeDays: {
+                required: 'Số Ngày OT không được để trống!',
+                number: 'Không hợp lệ!',
+                max: 'Số Ngày OT vượt quá quy định!'
+            },
+            realDayWork: {
+                required: 'Ngày công thực không được để trống!',
+                number: 'Không hợp lệ!',
+                max: 'Số ngày phải nhỏ hơn 31'
+            },
+            basicDayWork: {
+                required: 'Ngày công cơ bản không được để trống!',
+                number: 'Không hợp lệ!',
+                max: 'Số ngày phải nhỏ hơn 31'
             }
         }})
 

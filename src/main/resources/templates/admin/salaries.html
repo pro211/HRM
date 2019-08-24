@@ -31,6 +31,7 @@
             <td th:text="${salary.month +'/'+ salary.year}"></td>
             <td th:text="${salary.getEmployee().getBusinessName()}"></td>
             <td th:text="${salary.getEmployee().getEmployeeName()}"></td>
+            <td th:text="${salary.getRealDayWork()} + ' Ngày'"></td>
             <td th:text="${salary.getAchievement()} + ' VND'"></td>
             <td th:text="${salary.getTotalIncome()} + ' VND'"></td>
             <td>
@@ -134,6 +135,21 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
+                                        <label for="basicDayWork" class="col-form-label">Ngày công cơ bản: </label>
+                                        <input type="text" class="form-control" id="basicDayWork" name="basicDayWork" required readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="realDayWork" class="col-form-label">Ngày công thực tế: </label>
+                                        <input type="text" class="form-control" id="realDayWork" name="realDayWork" readonly="readonly" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
                                         <label for="contract" class="col-form-label">Mã Hợp Đồng: </label>
                                         <select class="form-control" name="contract" id="contract" readonly="readonly" required>
                                         </select>
@@ -174,6 +190,27 @@
                                             </div>
                                             <input type="text" class="form-control" id="personalIncomeTax"
                                                    name="personalIncomeTax" style="min-width: 50%" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="overtimeDays" class="col-form-label">Số Ngày OT: </label>
+                                        <input type="text" class="form-control" id="overtimeDays" name="overtimeDays" required readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="overtimePercent" class="col-form-label"> Phần trăm lương OT </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">%</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="overtimePercent"
+                                                   name="overtimePercent" style="min-width: 50%" required readonly="readonly">
                                         </div>
                                     </div>
                                 </div>
