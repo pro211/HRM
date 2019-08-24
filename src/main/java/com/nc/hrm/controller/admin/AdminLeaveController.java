@@ -1,9 +1,6 @@
 package com.nc.hrm.controller.admin;
 
-import com.nc.hrm.model.entity.Contract;
-import com.nc.hrm.model.entity.Employee;
-import com.nc.hrm.model.entity.JobTitle;
-import com.nc.hrm.model.entity.Leave;
+import com.nc.hrm.model.entity.*;
 import com.nc.hrm.model.service.EmployeeService;
 import com.nc.hrm.model.service.LeaveService;
 import com.nc.hrm.model.service.LeaveStatusService;
@@ -14,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -44,8 +42,11 @@ public class AdminLeaveController {
         Map<String,Object> map=new HashMap<>();
         Leave leave = leaveService.findById(id);
         Employee employee = employeeService.findById(leave.getEmployee().getId());
+        LeaveStatus leaveStatus = leaveStatusService.findById(leave.getStatus().getId());
+
         map.put("leave",leave);
         map.put("employee",employee);
+        map.put("status",leaveStatus);
         return map;
     }
 
@@ -59,5 +60,12 @@ public class AdminLeaveController {
     public String deleteLeave (Integer id) {
         leaveService.delete(id);
         return "redirect:/admin/leave";
+    }
+
+    @GetMapping("/admin/leave/findByEmployee")
+    @ResponseBody
+    public List<Leave> findByEmployee(int id) {
+        List<Leave> listLeaves = leaveService.findByEmployeeId(id);
+        return listLeaves;
     }
 }

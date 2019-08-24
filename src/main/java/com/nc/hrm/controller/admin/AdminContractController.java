@@ -1,6 +1,7 @@
 package com.nc.hrm.controller.admin;
 
 import com.nc.hrm.model.entity.Contract;
+import com.nc.hrm.model.entity.ContractType;
 import com.nc.hrm.model.entity.Employee;
 import com.nc.hrm.model.entity.JobTitle;
 import com.nc.hrm.model.service.ContractService;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -51,10 +53,12 @@ public class AdminContractController {
         Contract contract = contractService.findById(id);
         Employee employee = employeeService.findById(contract.getEmployee().getId());
         JobTitle jobTitle = jobtitleService.findById(contract.getPosition().getId());
+        ContractType contractType = contractTypeService.findById(contract.getType().getId());
 
         map.put("contract",contract);
         map.put("employee",employee);
         map.put("position",jobTitle);
+        map.put("type",contractType);
         return map;
     }
 
@@ -69,5 +73,19 @@ public class AdminContractController {
     public String deleteContract (Integer id) {
         contractService.delete(id);
         return "redirect:/admin/contract";
+    }
+
+//    @GetMapping("/admin/contract/findByCode")
+//    @ResponseBody
+//    public Contract findByCode(String code) {
+//        Contract contract = contractService.findByCode(code);
+//        return contract;
+//    }
+
+    @GetMapping("/admin/contract/findByEmployee")
+    @ResponseBody
+    public List<Contract> findByEmployee(int id) {
+        List<Contract> listContracts = contractService.findByEmployeeId(id);
+        return listContracts;
     }
 }

@@ -23,6 +23,7 @@ $(document).ready(function(){
             $('.employee-form #businessName').val(map.employee.businessName)
             $('.employee-form #employeeName').val(map.employee.employeeName)
             $('.employee-form #active').val(map.employee.active ? 1 : 0)
+            $('#department').val(map.department.id)
         })
     });
 
@@ -39,7 +40,27 @@ $(document).ready(function(){
 
     $('.table .dBtn').on('click',function(event){
         var href = $(this).attr('href');
-        $('#deleteModal #delBtn').attr('href',href);
+        var begin = href.indexOf('=')+1;
+        var id = href.slice(begin,href.length);
+
+        var hrefx = '/hrm/admin/employee/find/?id='+ id;
+
+        $.get(hrefx, function(map,status){
+            if (map.employee.contracts.length > 0 ||
+                map.employee.achievements.length > 0 ||
+                map.employee.salaries.length > 0 ||
+                map.employee.leave.length > 0
+            ) {
+                $('#deleteModal #delBtn').attr('href','#');
+                $('#deleteModal #delBtn').attr('data-dismiss','modal');
+                $('#haveData').show();
+                $('#haveData').text('Nhân viên này có dữ liệu, không thể xóa!')
+            }else{
+                $('#deleteModal #delBtn').removeAttr('data-dismiss','modal');
+                $('#haveData').hide();
+                $('#deleteModal #delBtn').attr('href',href);
+            }
+        })
     });
 
     // validate
@@ -47,15 +68,21 @@ $(document).ready(function(){
         return this.optional(element) || /^[a-z àáâãèéêếìíòóôõùúăđĩũơưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởụủứừửữự]+$/i.test(value);
     }, "Letters and spaces only please");
 
+    jQuery.validator.addMethod("noSpace", function(value, element) {
+        return value.indexOf(" ") < 0 && value != "";
+    }, "No space please and don't leave it empty");
+
     var validator = $('#myForm').validate({
         rules: {
             businessName: {
                 required: true,
-                minlength: 2
+                minlength: 2,
+                noSpace: true
             },
             employeeName: {
                 required: true,
-                lettersonly: true
+                lettersonly: true,
+                noSpace: true
             },
             department: {
                 required: true
@@ -63,12 +90,14 @@ $(document).ready(function(){
         },
         messages: {
             businessName: {
-                required: 'Mã phòng ban không được để trống!',
-                minlength: 'Mã phòng ban tối thiểu 2 ký tự!'
+                required: 'Mã nhân viên không được để trống!',
+                minlength: 'Mã nhân viên tối thiểu 2 ký tự!',
+                noSpace: 'Mã nhân viên không hợp lệ!'
             },
             employeeName: {
-                required: 'Tên phòng ban không được để trống!',
-                lettersonly: 'Tên không hợp lệ!'
+                required: 'Tên nhân viên không được để trống!',
+                lettersonly: 'Tên không hợp lệ!',
+                noSpace: 'Tên nhân viên không hợp lệ!'
             },
             department: {
                 required: 'Bạn chưa lựa chọn phòng ban!'

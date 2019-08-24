@@ -54,7 +54,7 @@
             <td th:text="${achievement.type ? 'Khen thưởng' : 'Kỷ Luật'}"></td>
             <td th:text="${achievement.applyDate}"></td>
             <td th:text="${achievement.reason}"></td>
-            <td th:text="${achievement.amount}"></td>
+            <td th:text="${achievement.amount} + ' VND'"></td>
             <td>
                 <a class="btn btn-primary eBtn"  th:href="@{/admin/achievement/find/(id=${achievement.id})}"
                    data-toggle="modal" data-target="#achievementModal"> <i class="fa fa-pencil" aria-hidden="true"></i>  </a>
@@ -132,7 +132,12 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="amount" class="col-form-label">Số tiền:</label>
-                                        <input type="text" class="form-control" id="amount" name="amount" required>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">VND</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="amount" name="amount" style="min-width: 50%" required>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    $('#haveData').hide();
     $('.table .eBtn').on('click',function(event){
         validator.resetForm();
         $('#myForm .form-control').removeClass('error');
@@ -15,8 +16,23 @@ $(document).ready(function(){
 
     $('.table .dBtn').on('click',function(event){
         var href = $(this).attr('href');
-        console.log(href);
-        $('#deleteModal #delBtn').attr('href',href);
+        var begin = href.indexOf('=')+1;
+        var id = href.slice(begin,href.length);
+
+        var href2 = '/hrm/admin/employee/findByDep/?id='+ id;
+        $.get(href2, function(employees,status){
+            console.log('EmployeeNumber: '+ employees.length);
+            if(employees.length > 0){
+                $('#deleteModal #delBtn').attr('href','#');
+                $('#deleteModal #delBtn').attr('data-dismiss','modal');
+                $('#haveData').show();
+                $('#haveData').text('Phòng ban này có nhân viên, không thể xóa!')
+            }else {
+                $('#deleteModal #delBtn').removeAttr('data-dismiss','modal');
+                $('#haveData').hide();
+                $('#deleteModal #delBtn').attr('href',href);
+            }
+        })
     });
 
     $('.aBtn').on('click',function(event){
